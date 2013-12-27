@@ -1,0 +1,74 @@
+[1;33mWarning: Unrecheable code in /media/sf_projects/zephir/test/fannkuch.zep on 36 [unrecheable-code]
+
+	   }
+	---^
+
+[0m
+[1;33mWarning: Class "fullClassName" does not exist at compile time  in /media/sf_projects/zephir/test/oo/oodynamica.zep on 15 [nonexistent-class]
+
+	    return new {fullClassName}();
+	--------------------------------^
+
+[0m
+[1;33mWarning: Class "Test\DiInterface" does not exist at compile time in /media/sf_projects/zephir/test/router.zep on 346 [nonexistent-class]
+
+	     let request = dependencyInjector->getShared("request");
+	-----------------------------------------------------------^
+
+[0m
+[1;33mWarning: Class "Test\DiInterface" does not exist at compile time in /media/sf_projects/zephir/test/router.zep on 367 [nonexistent-class]
+
+	     let request = dependencyInjector->getShared("request");
+	-----------------------------------------------------------^
+
+[0m
+string(22) "(ch >= 'a')(ch <= 'z')"
+string(4) "bool"
+string(4) "bool"
+string(26) "(ch >= 'a') && (ch <= 'z')"
+string(22) "(ch >= 'A')(ch <= 'Z')"
+string(4) "bool"
+string(4) "bool"
+string(26) "(ch >= 'A') && (ch <= 'Z')"
+string(52) "(ch >= 'a') && (ch <= 'z')(ch >= 'A') && (ch <= 'Z')"
+string(4) "bool"
+string(4) "bool"
+string(56) "(ch >= 'a') && (ch <= 'z') || (ch >= 'A') && (ch <= 'Z')"
+string(73) "(cursorVar == 0)!(ch >= 'a') && (ch <= 'z') || (ch >= 'A') && (ch <= 'Z')"
+string(4) "bool"
+string(4) "bool"
+string(77) "(cursorVar == 0) && !(ch >= 'a') && (ch <= 'z') || (ch >= 'A') && (ch <= 'Z')"
+string(22) "(ch >= 'a')(ch <= 'z')"
+string(4) "bool"
+string(4) "bool"
+string(26) "(ch >= 'a') && (ch <= 'z')"
+string(22) "(ch >= 'A')(ch <= 'Z')"
+string(4) "bool"
+string(4) "bool"
+string(26) "(ch >= 'A') && (ch <= 'Z')"
+string(52) "(ch >= 'a') && (ch <= 'z')(ch >= 'A') && (ch <= 'Z')"
+string(4) "bool"
+string(4) "bool"
+string(56) "(ch >= 'a') && (ch <= 'z') || (ch >= 'A') && (ch <= 'Z')"
+string(22) "(ch >= '0')(ch <= '9')"
+string(4) "bool"
+string(4) "bool"
+string(26) "(ch >= '0') && (ch <= '9')"
+string(82) "(ch >= 'a') && (ch <= 'z') || (ch >= 'A') && (ch <= 'Z')(ch >= '0') && (ch <= '9')"
+string(4) "bool"
+string(4) "bool"
+string(86) "(ch >= 'a') && (ch <= 'z') || (ch >= 'A') && (ch <= 'Z') || (ch >= '0') && (ch <= '9')"
+string(97) "(ch >= 'a') && (ch <= 'z') || (ch >= 'A') && (ch <= 'Z') || (ch >= '0') && (ch <= '9')(ch == '-')"
+string(4) "bool"
+string(4) "bool"
+string(101) "(ch >= 'a') && (ch <= 'z') || (ch >= 'A') && (ch <= 'Z') || (ch >= '0') && (ch <= '9') || (ch == '-')"
+string(112) "(ch >= 'a') && (ch <= 'z') || (ch >= 'A') && (ch <= 'Z') || (ch >= '0') && (ch <= '9') || (ch == '-')(ch == '_')"
+string(4) "bool"
+string(4) "bool"
+string(116) "(ch >= 'a') && (ch <= 'z') || (ch >= 'A') && (ch <= 'Z') || (ch >= '0') && (ch <= '9') || (ch == '-') || (ch == '_')"
+string(127) "(ch >= 'a') && (ch <= 'z') || (ch >= 'A') && (ch <= 'Z') || (ch >= '0') && (ch <= '9') || (ch == '-') || (ch == '_')(ch == ':')"
+string(4) "bool"
+string(4) "bool"
+string(131) "(ch >= 'a') && (ch <= 'z') || (ch >= 'A') && (ch <= 'Z') || (ch >= '0') && (ch <= '9') || (ch == '-') || (ch == '_') || (ch == ':')"
+string(14) "variableregexp"
+string(8) "variable"

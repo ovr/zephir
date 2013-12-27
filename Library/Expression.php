@@ -268,7 +268,7 @@ class Expression
 				/**
 				 * Classes inside the same extension
 				 */
-				if (!class_exists($className, false)) {
+				if (!class_exists($className, false) && !$compilationContext->symbolTable->hasVariable($this->_expression['class'])) {
 					$compilationContext->logger->warning('Class "' . $className . '" does not exist at compile time ', "nonexistent-class", $newExpr);
 				}
 

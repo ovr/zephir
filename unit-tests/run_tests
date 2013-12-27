@@ -1,4 +1,5 @@
 #!/bin/bash
+valgrind --read-var-info=yes --fullpath-after= --track-origins=yes $(phpenv which php) ./unit-tests/oo/oodynamica.php
 valgrind --read-var-info=yes --fullpath-after= --track-origins=yes $(phpenv which php) ./unit-tests/assign.php
 valgrind --read-var-info=yes --fullpath-after= --track-origins=yes $(phpenv which php) ./unit-tests/arithmetic.php
 valgrind --read-var-info=yes --fullpath-after= --track-origins=yes $(phpenv which php) ./unit-tests/nativearray.php
