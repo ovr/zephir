@@ -520,30 +520,6 @@ class Compiler
 		system('cd ext && make clean 1> /dev/null');
 	}
 
-	/**
-	 * Checks if the content of the file on the disk is the same as the content.
-	 * Returns true if the file has been written
-	 *
-	 * @param string $content
-	 * @param string $path
-	 * @return boolean
-	 */
-	protected function _checkAndWriteIfNeeded($content, $path)
-	{
-		if (file_exists($path)) {
-			$contentMd5 = md5($content);
-			$existingMd5 = md5_file($path);
-			if ($contentMd5 != $existingMd5) {
-				file_put_contents($path, $content);
-				return true;
-			}
-		} else {
-			file_put_contents($path, $content);
-			return true;
-		}
-		return false;
-	}
-
 	protected function _checkKernelFile($src, $dst)
 	{
 		if (strstr($src, 'ext/kernel/concat.') !== false) {
@@ -592,7 +568,7 @@ class Compiler
 			$content = str_replace($mark, $replace, $content);
 		}
 
-		$needConfigure = $this->_checkAndWriteIfNeeded($content, 'ext/config.m4');
+		$needConfigure = Utils::checkAndWriteIfNeeded($content, 'ext/config.m4');
 
 		/**
 		 * php_ext.h
@@ -610,7 +586,7 @@ class Compiler
 			$content = str_replace($mark, $replace, $content);
 		}
 
-		$this->_checkAndWriteIfNeeded($content, 'ext/php_ext.h');
+		Utils::checkAndWriteIfNeeded($content, 'ext/php_ext.h');
 
 		/**
 		 * ext.h
@@ -628,7 +604,7 @@ class Compiler
 			$content = str_replace($mark, $replace, $content);
 		}
 
-		$this->_checkAndWriteIfNeeded($content, 'ext/ext.h');
+		Utils::checkAndWriteIfNeeded($content, 'ext/ext.h');
 
 		/**
 		 * ext_config.h
@@ -646,7 +622,7 @@ class Compiler
 			$content = str_replace($mark, $replace, $content);
 		}
 
-		$this->_checkAndWriteIfNeeded($content, 'ext/ext_config.h');
+		Utils::checkAndWriteIfNeeded($content, 'ext/ext_config.h');
 
 		/**
 		 * ext_clean
@@ -656,7 +632,7 @@ class Compiler
 			throw new Exception("clean file doesn't exists");
 		}
 
-		if ($this->_checkAndWriteIfNeeded($content, 'ext/clean')) {
+		if (Utils::checkAndWriteIfNeeded($content, 'ext/clean')) {
 			chmod('ext/clean', 0755);
 		}
 
@@ -676,7 +652,7 @@ class Compiler
 			$content = str_replace($mark, $replace, $content);
 		}
 
-		if ($this->_checkAndWriteIfNeeded($content, 'ext/install')) {
+		if (Utils::checkAndWriteIfNeeded($content, 'ext/install')) {
 			chmod('ext/install', 0755);
 		}
 
@@ -801,7 +777,7 @@ class Compiler
 		/**
 		 * Round 3. Generate and place the entry point of the project
 		 */
-		$this->_checkAndWriteIfNeeded($content, 'ext/' . $project . '.c');
+		Utils::checkAndWriteIfNeeded($content, 'ext/' . $project . '.c');
 		unset($content);
 
 		/**
@@ -829,7 +805,7 @@ class Compiler
 			$content = str_replace($mark, $replace, $content);
 		}
 
-		$this->_checkAndWriteIfNeeded($content, 'ext/' . $project . '.h');
+		Utils::checkAndWriteIfNeeded($content, 'ext/' . $project . '.h');
 		unset($content);
 
 		/**
@@ -896,7 +872,7 @@ class Compiler
 			$content = str_replace($mark, $replace, $content);
 		}
 
-		$this->_checkAndWriteIfNeeded($content, 'ext/php_' . $project . '.h');
+		Utils::checkAndWriteIfNeeded($content, 'ext/php_' . $project . '.h');
 		unset($content);
 
 		return $needConfigure;
