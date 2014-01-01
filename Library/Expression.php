@@ -1093,13 +1093,15 @@ class Expression
 				if ($expression['left']['type'] == 'list') {
 					$compilationContext->logger->warning("Unnecessary extra parentheses", "extra-parentheses", $expression);
 				}
+
 				$numberPrints = $compilationContext->codePrinter->getNumberPrints();
 				$expr = new Expression($expression['left']);
 				$expr->setExpectReturn($this->_expecting, $this->_expectingVariable);
+
 				$resolved = $expr->compile($compilationContext);
 				if (($compilationContext->codePrinter->getNumberPrints() - $numberPrints) <= 1) {
 					if (strpos($resolved->getCode(), ' ') !== false) {
-						return new CompiledExpression($resolved->getType(), '(' . $resolved->getCode() . ')', $expression);
+						return new CompiledExpression($resolved->getType(), $resolved->getCode(), $expression, !($resolved->getCode() == '('));
 					}
 				}
 				return $resolved;
@@ -1124,13 +1126,14 @@ class Expression
 			 */
 			case 'unlikely':
 			case 'likely':
+				var_dump($expression);
+				die();
+				break;
 			case 'ternary':
 				return new CompiledExpression('int', '(0 == 1)', $expression);
-
 			case 'typeof':
 			case 'require':
 				return new CompiledExpression('bool', '(0 == 1)', $expression);
-
 			default:
 				throw new CompilerException("Unknown expression: " . $type, $expression);
 		}

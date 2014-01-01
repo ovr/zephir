@@ -24,7 +24,6 @@
  */
 class EvalExpression
 {
-
 	protected $_unrecheable = false;
 
 	protected $_unrecheableElse = false;

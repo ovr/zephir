@@ -208,7 +208,7 @@ PHP_METHOD(Test_Router_Route, extractNamedParams) {
 		if ((parenthesesCount == 0)) {
 			if ((ch == '{')) {
 				if ((bracketCount == 0)) {
-					marker = (cursor + 1);
+					marker = ((cursor + 1));
 					intermediate = 0;
 					notValid = 0;
 				}
@@ -226,7 +226,7 @@ PHP_METHOD(Test_Router_Route, extractNamedParams) {
 							ZEPHIR_SINIT_NVAR(_1);
 							ZVAL_LONG(&_1, marker);
 							ZEPHIR_SINIT_NVAR(_2);
-							ZVAL_LONG(&_2, (cursor - marker));
+							ZVAL_LONG(&_2, ((cursor - marker)));
 							ZEPHIR_INIT_NVAR(_3);
 							zephir_call_func_p3(_3, "substr", pattern, &_1, &_2);
 							zephir_get_strval(_4, _3);
@@ -252,7 +252,7 @@ PHP_METHOD(Test_Router_Route, extractNamedParams) {
 										zephir_get_strval(_7, _6);
 										ZEPHIR_CPY_WRT(variable, _7);
 										ZEPHIR_SINIT_NVAR(_1);
-										ZVAL_LONG(&_1, (cursorVar + 1));
+										ZVAL_LONG(&_1, ((cursorVar + 1)));
 										ZEPHIR_INIT_NVAR(_8);
 										zephir_call_func_p2(_8, "substr", item, &_1);
 										zephir_get_strval(_9, _8);

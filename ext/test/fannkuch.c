@@ -81,7 +81,7 @@ PHP_METHOD(Test_Fannkuch, process) {
 			}
 			ZEPHIR_INIT_NVAR(_3);
 			ZVAL_LONG(_3, r);
-			zephir_array_update_long(&count, (r - 1), &_3, PH_COPY | PH_SEPARATE);
+			zephir_array_update_long(&count, ((r - 1)), &_3, PH_COPY | PH_SEPARATE);
 			r--;
 		}
 		_6 = n;
@@ -112,7 +112,7 @@ PHP_METHOD(Test_Fannkuch, process) {
 			ZEPHIR_OBS_NVAR(_8);
 			zephir_array_fetch_long(&_8, perm, 0, PH_NOISY TSRMLS_CC);
 			k = zephir_get_intval(_8);
-			k2 = (((((k + 1)) / 2)) - 1);
+			k2 = ((((((k + 1))) / 2)) - 1);
 			_11 = k2;
 			_10 = 0;
 			_9 = 0;
@@ -128,9 +128,9 @@ PHP_METHOD(Test_Fannkuch, process) {
 					}
 					i = _10;
 					zephir_array_fetch_long(&temp, perm, i, PH_NOISY | PH_READONLY TSRMLS_CC);
-					zephir_array_fetch_long(&_12, perm, (k - i), PH_NOISY | PH_READONLY TSRMLS_CC);
+					zephir_array_fetch_long(&_12, perm, ((k - i)), PH_NOISY | PH_READONLY TSRMLS_CC);
 					zephir_array_update_long(&perm, i, &_12, PH_COPY | PH_SEPARATE);
-					zephir_array_update_long(&perm, (k - i), &temp, PH_COPY | PH_SEPARATE);
+					zephir_array_update_long(&perm, ((k - i)), &temp, PH_COPY | PH_SEPARATE);
 				}
 			}
 			flipsCount++;
@@ -138,7 +138,7 @@ PHP_METHOD(Test_Fannkuch, process) {
 		if ((maxFlipsCount < flipsCount)) {
 			maxFlipsCount = flipsCount;
 		}
-		if (((permCount % 2) == 0)) {
+		if ((((permCount % 2)) == 0)) {
 			checksum += flipsCount;
 		} else {
 			checksum -= flipsCount;
@@ -163,7 +163,7 @@ PHP_METHOD(Test_Fannkuch, process) {
 				if (!((i < r))) {
 					break;
 				}
-				j = (i + 1);
+				j = ((i + 1));
 				zephir_array_fetch_long(&_7, perm1, j, PH_NOISY | PH_READONLY TSRMLS_CC);
 				zephir_array_update_long(&perm1, i, &_7, PH_COPY | PH_SEPARATE);
 				i = j;

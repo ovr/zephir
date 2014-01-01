@@ -24,6 +24,8 @@
  */
 class LogicalBaseOperator extends BaseOperator
 {
+	protected $_operator;
+	protected $_bitOperator;
 
 	public function compile($expression, CompilationContext $compilationContext)
 	{
@@ -43,15 +45,17 @@ class LogicalBaseOperator extends BaseOperator
 		$rightExpr->setReadOnly($this->_readOnly);
 		$right = $rightExpr->compile($compilationContext);
 
+		$brackets = !($left->getCode() == '(');
+
 		switch ($left->getType()) {
 			case 'int':
 				switch ($right->getType()) {
 					case 'int':
-						return new CompiledExpression('int', '(' . $left->getCode() . ' ' . $this->_operator . ' ' . $right->getCode() . ')', $expression);
+						return new CompiledExpression('int', $left->getCode() . ' ' . $this->_operator . ' ' . $right->getCode(), $expression, $brackets);
 					case 'double':
-						return new CompiledExpression('double', '((double) ' . $left->getCode() . ' ' . $this->_operator . ' ' . $right->getCode() . ')', $expression);
+						return new CompiledExpression('double', '(double) ' . $left->getCode() . ' ' . $this->_operator . ' ' . $right->getCode(), $expression, true);
 					case 'bool':
-						return new CompiledExpression('int', '(' . $left->getCode() . ' ' . $this->_operator . ' ' . $right->getBooleanCode() . ')', $expression);
+						return new CompiledExpression('int', $left->getCode() . ' ' . $this->_operator . ' ' . $right->getBooleanCode(), $expression, $brackets);
 					case 'variable':
 						$variableRight = $compilationContext->symbolTable->getVariableForRead($right->getCode(), $compilationContext, $expression);
 						switch ($variableRight->getType()) {
@@ -214,11 +218,11 @@ class LogicalBaseOperator extends BaseOperator
 					case 'string':
 						switch ($right->getType()) {
 							case 'int':
-								return new CompiledExpression('bool', '(' . $variableLeft->getName() . ' && Z_STRLEN_P(' . $variableLeft->getName() . ')) ' . $this->_operator . ' ' . $right->getCode(), $expression);
+								return new CompiledExpression('bool', $variableLeft->getName() . ' && Z_STRLEN_P(' . $variableLeft->getName() . ') ' . $this->_operator . ' ' . $right->getCode(), $expression, true);
 							case 'double':
-								return new CompiledExpression('bool', '(' . $variableLeft->getName() . ' && Z_STRLEN_P(' . $variableLeft->getName() . ')) ' . $this->_operator . ' ' . $right->getCode(), $expression);
+								return new CompiledExpression('bool', '(' . $variableLeft->getName() . ' && Z_STRLEN_P(' . $variableLeft->getName() . ')) ' . $this->_operator . ' ' . $right->getCode(), $expression, true);
 							case 'bool':
-								return new CompiledExpression('bool', '(' . $variableLeft->getName() . ' && Z_STRLEN_P(' . $variableLeft->getName() . ')) ' . $this->_bitOperator . '' . $right->getBooleanCode(), $expression);
+								return new CompiledExpression('bool', '(' . $variableLeft->getName() . ' && Z_STRLEN_P(' . $variableLeft->getName() . ')) ' . $this->_bitOperator . '' . $right->getBooleanCode(), $expression, true);
 							case 'variable':
 								$variableRight = $compilationContext->symbolTable->getVariableForRead($right->getCode(), $compilationContext, $expression['right']);
 								switch ($variableRight->getType()) {

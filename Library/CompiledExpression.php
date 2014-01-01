@@ -32,13 +32,21 @@ class CompiledExpression
 	protected $_originalExpr;
 
 	/**
-	 *
-	 * @param string $type
+	 * @param $type
+	 * @param $code
+	 * @param $originalExpr
+	 * @param bool $brackets
 	 */
-	public function __construct($type, $code, $originalExpr)
+	public function __construct($type, $code, $originalExpr, $brackets = false)
 	{
 		$this->_type = $type;
-		$this->_code = $code;
+
+		if ($brackets) {
+			$this->_code = '('.$code.')';
+		} else {
+			$this->_code = $code;
+		}
+
 		$this->_originalExpr = $originalExpr;
 	}
 

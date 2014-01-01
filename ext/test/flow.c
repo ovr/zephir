@@ -216,7 +216,7 @@ PHP_METHOD(Test_Flow, testIf13) {
 
 	a = 1;
 	b = 2;
-	if ((a + b)) {
+	if (((a + b))) {
 		RETURN_LONG(-12);
 	}
 	RETURN_LONG(0);
@@ -230,7 +230,7 @@ PHP_METHOD(Test_Flow, testIf14) {
 
 	a = 1;
 	b = 2;
-	if ((a + b)) {
+	if (((a + b))) {
 		RETURN_LONG(74);
 	}
 	RETURN_LONG(0);
@@ -245,7 +245,7 @@ PHP_METHOD(Test_Flow, testIf15) {
 	a = 1;
 	b = 2;
 	c = 3;
-	if (((a + b) + c)) {
+	if ((((a + b)) + c)) {
 		RETURN_LONG(89);
 	}
 	RETURN_LONG(0);
@@ -289,7 +289,7 @@ PHP_METHOD(Test_Flow, testLoop2) {
 
 	a = 1;
 	while (1) {
-		a = (a + 1);
+		a = ((a + 1));
 		if ((a == 5)) {
 			break;
 		}
@@ -305,9 +305,9 @@ PHP_METHOD(Test_Flow, testLoop3) {
 
 	a = 1;
 	while (1) {
-		a = (a + 1);
+		a = ((a + 1));
 		if ((a == 3)) {
-			a = (a + 1);
+			a = ((a + 1));
 			continue;
 		}
 		if ((a == 5)) {
@@ -325,9 +325,9 @@ PHP_METHOD(Test_Flow, testLoop4) {
 
 	a = 1;
 	while (1) {
-		a = (a + 1);
+		a = ((a + 1));
 		if ((a == 3)) {
-			a = (a + 1);
+			a = ((a + 1));
 			continue;
 		}
 		if ((a == 5)) {
@@ -348,7 +348,7 @@ PHP_METHOD(Test_Flow, testWhile1) {
 		if (!(a)) {
 			break;
 		}
-		a = (a - 1);
+		a = ((a - 1));
 	}
 	RETURN_LONG(a);
 
@@ -364,7 +364,7 @@ PHP_METHOD(Test_Flow, testWhile2) {
 		if (!(a)) {
 			break;
 		}
-		a = (a - 1);
+		a = ((a - 1));
 	}
 	RETURN_LONG(a);
 
@@ -386,11 +386,11 @@ PHP_METHOD(Test_Flow, testWhile3) {
 			if (!(b)) {
 				break;
 			}
-			b = (b - 1);
+			b = ((b - 1));
 		}
-		a = (a - 1);
+		a = ((a - 1));
 	}
-	c = (double) ((a + b));
+	c = (double) (((a + b)));
 	RETURN_DOUBLE(c);
 
 }
@@ -411,11 +411,11 @@ PHP_METHOD(Test_Flow, testWhile4) {
 			if (!(b)) {
 				break;
 			}
-			b = (b - 1);
+			b = ((b - 1));
 		}
-		a = (a - 1);
+		a = ((a - 1));
 	}
-	c = (double) ((a + b));
+	c = (double) (((a + b)));
 	RETURN_DOUBLE(c);
 
 }
@@ -504,7 +504,7 @@ PHP_METHOD(Test_Flow, testWhile9) {
 		}
 		a--;
 	}
-	c = (double) ((a + b));
+	c = (double) (((a + b)));
 	RETURN_DOUBLE(c);
 
 }

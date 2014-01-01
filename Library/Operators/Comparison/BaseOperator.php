@@ -28,6 +28,10 @@ class ComparisonBaseOperator extends BaseOperator
 
 	protected $_commutative = false;
 
+	protected $_operator;
+
+	protected $_bitOperator;
+
 	/**
 	 *
 	 * @param array $expr
@@ -131,6 +135,7 @@ class ComparisonBaseOperator extends BaseOperator
 		$rightExpr->setReadOnly(true);
 		$right = $rightExpr->compile($compilationContext);
 
+		$bracket = !($left->getCode() == '(');
 		switch ($left->getType()) {
 			case 'null':
 				switch ($right->getType()) {
@@ -154,7 +159,6 @@ class ComparisonBaseOperator extends BaseOperator
 			case 'uint':
 			case 'long':
 			case 'ulong':
-			case 'int':
 			case 'char':
 			case 'uchar':
 				switch ($right->getType()) {
@@ -164,7 +168,7 @@ class ComparisonBaseOperator extends BaseOperator
 					case 'uint':
 					case 'long':
 					case 'ulong':
-						return new CompiledExpression('bool', '(' . $left->getCode() . ' ' . $this->_operator . ' ' . $right->getCode() . ')', $expression);
+						return new CompiledExpression('bool', $left->getCode() . ' ' . $this->_operator . ' ' . $right->getCode(), $expression, $bracket);
 					case 'char':
 					case 'uchar':
 						return new CompiledExpression('bool', '(' . $left->getCode() . ' ' . $this->_operator . ' \'' . $right->getCode() . '\')', $expression);
@@ -178,10 +182,10 @@ class ComparisonBaseOperator extends BaseOperator
 							case 'long':
 							case 'ulong':
 								$compilationContext->headersManager->add('kernel/operators');
-								return new CompiledExpression('bool', '(' . $left->getCode() . ' ' . $this->_operator . ' ' . $variableRight->getName() . ')', $expression);
+								return new CompiledExpression('bool', $left->getCode() . ' ' . $this->_operator . ' ' . $variableRight->getName(), $expression, true);
 							case 'double':
 								$compilationContext->headersManager->add('kernel/operators');
-								return new CompiledExpression('bool', '(' . $left->getCode() . ' ' . $this->_operator . ' ' . $variableRight->getName() . ')', $expression);
+								return new CompiledExpression('bool', $left->getCode() . ' ' . $this->_operator . ' ' . $variableRight->getName(), $expression, true);
 							case 'variable':
 								$compilationContext->headersManager->add('kernel/operators');
 								return new CompiledExpression('bool', 'ZEPHIR_IS_LONG(' . $variableRight->getName() . ', ' . $left->getCode() . ')', $expression);
