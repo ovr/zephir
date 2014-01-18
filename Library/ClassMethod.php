@@ -1169,12 +1169,19 @@ class ClassMethod
 				 * Assign the default value according to the variable's type
 				 */
 				if ($dataType == 'variable' || $dataType == 'string') {
+					$initCode .= "\t" . 'if ('.$name.' == NULL) {' . PHP_EOL;
 					$initCode .= $this->assignDefaultValue($parameter, $compilationContext);
 					if (isset($parametersToSeparate[$name])) {
+						$initCode .= "\t" . '} else {' . PHP_EOL;
 						$initCode .= "\t\t" . "ZEPHIR_SEPARATE_PARAM(" . $name . ");" . PHP_EOL;
+						$initCode .= "\t" . '}' . PHP_EOL;
+					} else {
+						$initCode .= "\t" . '}' . PHP_EOL;
 					}
 				} else {
+					$initCode .= "\t" . 'if ('.$name.') {' . PHP_EOL;
 					$initCode .= $this->assignZvalValue($parameter, $compilationContext);
+					$initCode .= "\t" . '}' . PHP_EOL;
 				}
 			}
 

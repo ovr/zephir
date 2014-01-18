@@ -281,3 +281,37 @@ PHP_METHOD(Test_Mcall, testCall15) {
 
 }
 
+PHP_METHOD(Test_Mcall, optionalParameterString) {
+
+	zval *param1_param = NULL;
+	zval *param1 = NULL;
+
+	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 0, 1, &param1_param);
+
+	if (param1_param == NULL) {
+		ZEPHIR_INIT_VAR(param1);
+		ZVAL_STRING(param1, "test string", 1);
+	}
+
+
+	RETURN_CTOR(param1);
+
+}
+
+PHP_METHOD(Test_Mcall, optionalParameterInt) {
+
+	zval *param2_param = NULL;
+	int param2;
+
+	zephir_fetch_params(0, 0, 1, &param2_param);
+
+	if (param2_param) {
+		param2 = zephir_get_intval(param2_param);
+	}
+
+
+	RETURN_LONG(param2);
+
+}
+

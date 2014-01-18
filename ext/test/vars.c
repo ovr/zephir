@@ -97,8 +97,10 @@ PHP_METHOD(Test_Vars, test88Issue) {
 		ZEPHIR_INIT_VAR(param1);
 		ZVAL_EMPTY_STRING(param1);
 	}
+	if (param2_param == NULL) {
 		ZEPHIR_INIT_VAR(param2);
 		ZVAL_EMPTY_STRING(param2);
+	}
 
 
 	zephir_var_dump(&(param1) TSRMLS_CC);
@@ -128,8 +130,10 @@ PHP_METHOD(Test_Vars, test88IssueParam2InitString) {
 		ZEPHIR_INIT_VAR(param1);
 		ZVAL_EMPTY_STRING(param1);
 	}
+	if (param2_param == NULL) {
 		ZEPHIR_INIT_VAR(param2);
 		ZVAL_STRING(param2, "test string", 1);
+	}
 
 
 	zephir_var_export(&(param2) TSRMLS_CC);

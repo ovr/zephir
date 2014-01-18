@@ -22,3 +22,7 @@ assert($t->testCall13(2, 3) === 5);
 assert($t->testCall14(6, 7) === 13);
 assert($t->testCall15(4, 5) === 9);
 
+var_dump($t->optionalParameterString("test"));
+var_dump($t->optionalParameterString());
+var_dump($t->optionalParameterInt(1));
+var_dump($t->optionalParameterInt());

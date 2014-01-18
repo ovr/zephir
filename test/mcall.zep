@@ -112,4 +112,13 @@ class Mcall
 		return this->{"testMethod6"}(a, b);
 	}
 
+    public function optionalParameterString(string param1 = "test string")
+    {
+        return param1;
+    }
+
+    public function optionalParameterInt(int param2 = 2)
+    {
+        return param2;
+    }
 }
