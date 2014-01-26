@@ -25,6 +25,7 @@
 #include "php.h"
 #include "php_ext.h"
 #include "ext/standard/php_array.h"
+#include "Zend/zend_hash.h"
 
 #include "kernel/main.h"
 #include "kernel/memory.h"
