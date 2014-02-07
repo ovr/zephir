@@ -2,6 +2,7 @@
 
 $t = new Test\Assign();
 
+assert(true == false);
 assert($t->testAssign1() === 1);
 assert($t->testAssign2() === 1);
 assert($t->testAssign3() === 0);
