@@ -3,7 +3,6 @@
 $t = new Test\Arithmetic();
 
 // SUM TESTS
-
 assert($t->intSum() === 3);
 assert($t->int2Sum() === 3);
 assert($t->intSumSimple() === 3);

@@ -16,6 +16,7 @@ before_script:
  - $(phpenv which php) compiler.php generate
  - (cd ext; export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall -fvisibility=hidden"; phpize && ./configure --silent --enable-test && make -j2 && sudo make install && phpenv config-add ../unit-tests/ci/test.ini)
  - ulimit -c unlimited || true
+ - echo 'assert.bail = 1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script:
  - ./unit-tests/run_tests
