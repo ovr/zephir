@@ -184,10 +184,10 @@ PHP_METHOD(Test_Router_Route, via) {
 PHP_METHOD(Test_Router_Route, extractNamedParams) {
 
 	zend_bool notValid = 0, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17;
-	int tmp, cursor, cursorVar, marker, bracketCount = 0, parenthesesCount = 0, foundPattern = 0, intermediate = 0, numberMatches = 0, _0, _5, _24;
+	int tmp, cursor, cursorVar, marker, bracketCount = 0, parenthesesCount = 0, foundPattern = 0, intermediate = 0, numberMatches = 0, _0, _5, _24, _25;
 	char ch;
 	zval *pattern_param = NULL, *matches, _1 = zval_used_for_init, _2 = zval_used_for_init, *_3 = NULL, _18 = zval_used_for_init, *_19 = NULL, _21 = zval_used_for_init, *_22 = NULL;
-	zval *pattern = NULL, *route, *item = NULL, *variable = NULL, *regexp = NULL, *_4 = NULL, *_20 = NULL, *_23 = NULL, *_25 = NULL;
+	zval *pattern = NULL, *route, *item = NULL, *variable = NULL, *regexp = NULL, *_4 = NULL, *_20 = NULL, *_23 = NULL, *_26 = NULL;
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &pattern_param);
@@ -351,9 +351,9 @@ PHP_METHOD(Test_Router_Route, extractNamedParams) {
 									zephir_array_update_zval(&matches, item, &_22, PH_COPY | PH_SEPARATE);
 								}
 							} else {
-								ZEPHIR_INIT_LNVAR(_25);
-								ZEPHIR_CONCAT_SVS(_25, "{", item, "}");
-								zephir_concat_self(&route, _25 TSRMLS_CC);
+								ZEPHIR_INIT_LNVAR(_26);
+								ZEPHIR_CONCAT_SVS(_26, "{", item, "}");
+								zephir_concat_self(&route, _26 TSRMLS_CC);
 							}
 							continue;
 						}
@@ -629,6 +629,7 @@ PHP_METHOD(Test_Router_Route, getPaths) {
  */
 PHP_METHOD(Test_Router_Route, getReversedPaths) {
 
+	int _4;
 	HashTable *_2;
 	HashPosition _1;
 	zval *reversed, *path = NULL, *position = NULL, *_0, **_3;

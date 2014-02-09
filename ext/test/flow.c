@@ -1163,7 +1163,7 @@ PHP_METHOD(Test_Flow, testFor15) {
 PHP_METHOD(Test_Flow, testFor16) {
 
 	zend_bool _1;
-	int _0, _2, _3;
+	int _0, _2, _3, _4;
 	zval *a = NULL, *b = NULL, *c;
 
 	ZEPHIR_MM_GROW();
@@ -1199,7 +1199,7 @@ PHP_METHOD(Test_Flow, testFor16) {
 PHP_METHOD(Test_Flow, testFor17) {
 
 	zend_bool _1;
-	int _0, _2, _3;
+	int _0, _2, _3, _4;
 	zval *a = NULL, *b = NULL, *c;
 
 	ZEPHIR_MM_GROW();
@@ -1236,7 +1236,7 @@ PHP_METHOD(Test_Flow, testFor18) {
 
 	zend_bool _1;
 	zval *c, *_4 = NULL;
-	int a, b, _0, _2, _3;
+	int a, b, _0, _2, _3, _5;
 
 	ZEPHIR_MM_GROW();
 
@@ -1488,7 +1488,7 @@ PHP_METHOD(Test_Flow, testFor30) {
 
 PHP_METHOD(Test_Flow, testFor31) {
 
-	int k, v, _0;
+	int k, v, _0, _2;
 	zval *b;
 	zval *a, *_1 = NULL;
 

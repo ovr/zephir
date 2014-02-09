@@ -102,6 +102,22 @@ int zephir_get_global(zval **arr, const char *global, unsigned int global_length
 	return SUCCESS;
 }
 
+static inline int zephir_maybe_separate_zval(zval** z)
+{
+	if (Z_REFCOUNT_PP(z) > 1 && !Z_ISREF_PP(z)) {
+		zval *new_zv;
+
+		ALLOC_ZVAL(new_zv);
+		INIT_PZVAL_COPY(new_zv, *z);
+		*z = new_zv;
+		zval_copy_ctor(new_zv);
+
+		return 1;
+	}
+
+	return 0;
+}
+
 /**
  * Makes fast count on implicit array types
  */
