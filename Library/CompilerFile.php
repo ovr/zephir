@@ -403,14 +403,14 @@ class CompilerFile
     /**
      * @throws ParseException
      * @throws CompilerException
-     * @throws Exception
+     * @throws \Exception
      */
     public function preCompile()
     {
         $ir = $this->genIR();
 
         if (!is_array($ir)) {
-            throw new Exception("Cannot parse file: " . realpath($this->_filePath));
+            throw new \Exception("Cannot parse file: " . realpath($this->_filePath));
         }
 
         if (isset($ir['type']) && $ir['type'] == 'error') {

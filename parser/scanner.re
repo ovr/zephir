@@ -273,6 +273,18 @@ int xx_get_token(xx_scanner_state *s, xx_scanner_token *token) {
 			return 0;
 		}
 
+		'try' {
+			s->active_char += sizeof("try")-1;
+			token->opcode = XX_T_TRY;
+			return 0;
+		}
+
+		'catch' {
+			s->active_char += sizeof("catch")-1;
+			token->opcode = XX_T_CATCH;
+			return 0;
+		}
+
 		'do' {
 			s->active_char += sizeof("do")-1;
 			token->opcode = XX_T_DO;
