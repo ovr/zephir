@@ -273,6 +273,12 @@ int xx_get_token(xx_scanner_state *s, xx_scanner_token *token) {
 			return 0;
 		}
 
+		'reference' {
+			s->active_char += sizeof("reference")-1;
+			token->opcode = XX_T_REFERENCE;
+			return 0;
+		}
+
 		'if' {
 			s->active_char += sizeof("if")-1;
 			token->opcode = XX_T_IF;

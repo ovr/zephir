@@ -257,6 +257,9 @@ int xx_parse_program(char *program, unsigned int program_length, char *file_path
 			case XX_T_CONST:
 				xx_(xx_parser, XX_CONST, NULL, parser_status);
 				break;
+            case XX_T_REFERENCE:
+				xx_(xx_parser, XX_REFERENCE, NULL, parser_status);
+				break;
 			case XX_T_TYPEOF:
 				xx_(xx_parser, XX_TYPEOF, NULL, parser_status);
 				break;

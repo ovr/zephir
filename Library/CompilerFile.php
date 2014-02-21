@@ -209,6 +209,8 @@ class CompilerFile
             /**
              * Register methods
              */
+//            var_dump($definition['methods'][0]['parameters']);
+//            die();
             if (isset($definition['methods'])) {
                 foreach ($definition['methods'] as $method) {
                     $classMethod = new ClassMethod($classDefinition, $method['visibility'], $method['name'], isset($method['parameters']) ? new ClassMethodParameters($method['parameters']) : null, null, isset($method['docblock']) ? $method['docblock'] : null, isset($method['return-type']) ? $method['return-type'] : null, $method);

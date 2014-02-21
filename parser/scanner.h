@@ -95,6 +95,7 @@
 #define XX_T_AS 396
 #define XX_T_TRY 397
 #define XX_T_CATCH 398
+#define XX_T_REFERENCE 399
 
 /* Operators */
 #define XX_T_AT '@'
