@@ -27,4 +27,11 @@ class EvalTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(2, $t->evalCode('1 + 1'));
     }
+
+    public function testEvalEcho()
+    {
+        $t = new \Test\EvalTest();
+
+        $this->assertSame(2, $t->evalCode('echo 1+1'));
+    }
 }
