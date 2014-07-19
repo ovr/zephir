@@ -20,7 +20,7 @@
 namespace Zephir\Statements;
 
 use Zephir\CompilationContext;
-use Zephir\CompilerException;
+use Zephir\Compiler\Exception as CompilerException;
 use Zephir\Expression;
 use Zephir\LiteralCompiledExpression;
 

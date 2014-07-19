@@ -21,6 +21,7 @@ namespace Zephir;
 
 use Zephir\Passes\LocalContextPass;
 use Zephir\Passes\StaticTypeInference;
+use Zephir\Compiler\Exception as CompilerException;
 
 /**
  * SymbolTable

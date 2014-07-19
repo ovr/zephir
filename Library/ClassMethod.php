@@ -35,6 +35,7 @@ use Zephir\Builder\Statements\IfStatementBuilder;
 use Zephir\Builder\Statements\ThrowStatementBuilder;
 use Zephir\Statements\IfStatement;
 use Zephir\Detectors\WriteDetector;
+use Zephir\Compiler\Exception as CompilerException;
 
 /**
  * ClassMethod

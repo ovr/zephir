@@ -21,6 +21,7 @@ namespace Zephir;
 
 use Zephir\Utils;
 use Zephir\Optimizers\OptimizerAbstract;
+use Zephir\Compiler\Exception as CompilerException;
 
 /**
  * FunctionCall

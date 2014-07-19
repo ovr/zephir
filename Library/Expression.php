@@ -67,6 +67,7 @@ use Zephir\Expression\PropertyAccess;
 use Zephir\Expression\PropertyDynamicAccess;
 use Zephir\Expression\StaticConstantAccess;
 use Zephir\Expression\StaticPropertyAccess;
+use Zephir\Compiler\Exception as CompilerException;
 
 /**
  * Expressions

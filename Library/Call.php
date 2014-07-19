@@ -218,7 +218,7 @@ class Call
             if ($hasParametersByName) {
                 foreach ($parameters as $parameter) {
                     if (!isset($parameter['name'])) {
-                        throw new CompilerException('All parameters must use named', $parameter);
+                        throw new Compiler\Exception('All parameters must use named', $parameter);
                     }
                 }
             }
@@ -238,7 +238,7 @@ class Call
                         if (isset($positionalParameters[$parameter['name']])) {
                             $orderedParameters[$positionalParameters[$parameter['name']]] = $parameter;
                         } else {
-                            throw new CompilerException('Named parameter "' . $parameter['name'] . '" is not a valid parameter name, available: ' . join(', ', array_keys($positionalParameters)), $parameter['parameter']);
+                            throw new Compiler\Exception('Named parameter "' . $parameter['name'] . '" is not a valid parameter name, available: ' . join(', ', array_keys($positionalParameters)), $parameter['parameter']);
                         }
                     }
                     for ($i = 0; $i < count($parameters); $i++) {
@@ -274,7 +274,7 @@ class Call
                     continue;
                 }
 
-                throw new CompilerException("Invalid expression ", $expression);
+                throw new Compiler\Exception("Invalid expression ", $expression);
             }
             $this->_resolvedParams = $params;
         }
@@ -465,12 +465,12 @@ class Call
                             break;
 
                         default:
-                            throw new CompilerException("Cannot use variable type: " . $parameterVariable->getType() . " as parameter", $expression);
+                            throw new Compiler\Exception("Cannot use variable type: " . $parameterVariable->getType() . " as parameter", $expression);
                     }
                     break;
 
                 default:
-                    throw new CompilerException("Cannot use value type: " . $compiledExpression->getType() . " as parameter", $expression);
+                    throw new Compiler\Exception("Cannot use value type: " . $compiledExpression->getType() . " as parameter", $expression);
             }
         }
 
@@ -582,12 +582,12 @@ class Call
                             break;
 
                         default:
-                            throw new CompilerException("Cannot use variable type: " . $parameterVariable->getType() . " as parameter", $expression);
+                            throw new Compiler\Exception("Cannot use variable type: " . $parameterVariable->getType() . " as parameter", $expression);
                     }
                     break;
 
                 default:
-                    throw new CompilerException("Cannot use value type: " . $compiledExpression->getType() . " as parameter", $expression);
+                    throw new Compiler\Exception("Cannot use value type: " . $compiledExpression->getType() . " as parameter", $expression);
             }
         }
 

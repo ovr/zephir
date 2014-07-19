@@ -21,6 +21,7 @@ namespace Zephir;
 
 use Zephir\Builder\StatementsBlockBuilder;
 use Zephir\Builder\Statements\LetStatementBuilder;
+use Zephir\Compiler\Exception as CompilerException;
 
 /**
  * ClassProperty

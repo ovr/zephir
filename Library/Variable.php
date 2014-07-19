@@ -636,7 +636,7 @@ class Variable
                 $this->setLocalOnly(false);
                 break;
             default:
-                throw new CompilerException('Cannot create an automatic safe default value for variable type: ' . $this->_type);
+                throw new Compiler\Exception('Cannot create an automatic safe default value for variable type: ' . $this->_type);
         }
     }
 

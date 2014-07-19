@@ -123,7 +123,7 @@ class Compiler
     protected function _recursivePreCompile($path)
     {
         if (!is_string($path)) {
-            throw new CompilerException('Invalid compilation path' . var_export($path, true));
+            throw new Compiler\Exception('Invalid compilation path' . var_export($path, true));
         }
 
         /**

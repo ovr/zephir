@@ -334,12 +334,12 @@ class ClassDefinition
      * Adds a property to the definition
      *
      * @param ClassProperty $property
-     * @throws CompilerException
+     * @throws Compiler\Exception
      */
     public function addProperty(ClassProperty $property)
     {
         if (isset($this->properties[$property->getName()])) {
-            throw new CompilerException("Property '" . $property->getName() . "' was defined more than one time", $property->getOriginal());
+            throw new Compiler\Exception("Property '" . $property->getName() . "' was defined more than one time", $property->getOriginal());
         }
 
         $this->properties[$property->getName()] = $property;
@@ -349,12 +349,12 @@ class ClassDefinition
      * Adds a constant to the definition
      *
      * @param ClassConstant $constant
-     * @throws CompilerException
+     * @throws Compiler\Exception
      */
     public function addConstant(ClassConstant $constant)
     {
         if (isset($this->constants[$constant->getName()])) {
-            throw new CompilerException("Constant '" . $constant->getName() . "' was defined more than one time");
+            throw new Compiler\Exception("Constant '" . $constant->getName() . "' was defined more than one time");
         }
 
         $this->constants[$constant->getName()] = $constant;
@@ -454,7 +454,7 @@ class ClassDefinition
     {
         $methodName = strtolower($method->getName());
         if (isset($this->methods[$methodName])) {
-            throw new CompilerException("Method '" . $method->getName() . "' was defined more than one time", $statement);
+            throw new Compiler\Exception("Method '" . $method->getName() . "' was defined more than one time", $statement);
         }
 
         $this->methods[$methodName] = $method;
@@ -602,7 +602,7 @@ class ClassDefinition
     {
         foreach ($interfaceDefinition->getMethods() as $method) {
             if (!$classDefinition->hasMethod($method->getName())) {
-                throw new CompilerException("Class " . $classDefinition->getCompleteName() . " must implement method: " . $method->getName() . " defined on interface: " . $interfaceDefinition->getCompleteName());
+                throw new Compiler\Exception("Class " . $classDefinition->getCompleteName() . " must implement method: " . $method->getName() . " defined on interface: " . $interfaceDefinition->getCompleteName());
             }
         }
     }
@@ -611,7 +611,7 @@ class ClassDefinition
      * Compiles a class/interface
      *
      * @param CompilationContext $compilationContext
-     * @throws CompilerException
+     * @throws Compiler\Exception
      */
     public function compile(CompilationContext $compilationContext)
     {
@@ -752,7 +752,7 @@ class ClassDefinition
                 }
 
                 if (!$classEntry) {
-                    throw new CompilerException("Cannot locate interface " . $interface . " when implementing interfaces on " . $this->getCompleteName(), $this->originalNode);
+                    throw new Compiler\Exception("Cannot locate interface " . $interface . " when implementing interfaces on " . $this->getCompleteName(), $this->originalNode);
                 }
 
                 /**
@@ -1098,7 +1098,7 @@ class ClassDefinition
 
             default:
                 if (!$check) {
-                    throw new CompilerException('Unknown class entry for "' . $className . '"');
+                    throw new Compiler\Exception('Unknown class entry for "' . $className . '"');
                 } else {
                     return false;
                 }
@@ -1164,7 +1164,7 @@ class ClassDefinition
         );
 
         if (!isset($map[$phpType])) {
-            throw new CompilerException("Cannot parse constant type '$phpType'");
+            throw new Compiler\Exception("Cannot parse constant type '$phpType'");
         }
 
         return $map[$phpType];

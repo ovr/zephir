@@ -23,7 +23,7 @@ use Zephir\Utils;
 use Zephir\Compiler;
 use Zephir\Expression;
 use Zephir\CompilationContext;
-use Zephir\CompilerException;
+use Zephir\Compiler\Exception as CompilerException;
 
 /**
  * ThrowStatement
