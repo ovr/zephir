@@ -43,7 +43,7 @@ class BranchGraphNode
      */
     public function __construct($branch)
     {
-        $this->_branch = $branch;
+        $this->branch = $branch;
     }
 
     /**
@@ -73,7 +73,7 @@ class BranchGraphNode
      */
     public function show($padding = 0)
     {
-        echo str_repeat("    ", $padding), $this->_branch->getUniqueId(), ':' , $this->increase;
+        echo str_repeat("    ", $padding), $this->branch->getUniqueId(), ':' , $this->increase;
         if (count($this->branches)) {
             echo ':', PHP_EOL;
             foreach ($this->branches as $node) {

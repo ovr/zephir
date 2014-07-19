@@ -44,7 +44,6 @@ class StaticCall extends Call
      */
     protected function callSelf($methodName, array $expression, $symbolVariable, $mustInit, $isExpecting, ClassDefinition $classDefinition, CompilationContext $compilationContext, $method)
     {
-
         $codePrinter = $compilationContext->codePrinter;
 
         /**

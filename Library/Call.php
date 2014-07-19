@@ -83,9 +83,9 @@ class Call
             }
         }
 
-        $this->_mustInit = $mustInit;
-        $this->_symbolVariable = $symbolVariable;
-        $this->_isExpecting = $isExpecting;
+        $this->mustInit = $mustInit;
+        $this->symbolVariable = $symbolVariable;
+        $this->isExpecting = $isExpecting;
     }
 
     /**
@@ -119,9 +119,9 @@ class Call
             }
         }
 
-        $this->_mustInit = $mustInit;
-        $this->_symbolVariable = $symbolVariable;
-        $this->_isExpecting = $isExpecting;
+        $this->mustInit = $mustInit;
+        $this->symbolVariable = $symbolVariable;
+        $this->isExpecting = $isExpecting;
     }
 
     /**
@@ -156,9 +156,9 @@ class Call
             }
         }
 
-        $this->_mustInit = $mustInit;
-        $this->_symbolVariable = $symbolVariable;
-        $this->_isExpecting = $isExpecting;
+        $this->mustInit = $mustInit;
+        $this->symbolVariable = $symbolVariable;
+        $this->isExpecting = $isExpecting;
     }
 
     /**
@@ -276,7 +276,7 @@ class Call
 
                 throw new Compiler\Exception("Invalid expression ", $expression);
             }
-            $this->_resolvedParams = $params;
+            $this->resolvedParams = $params;
         }
 
         return $this->resolvedParams;
@@ -474,9 +474,9 @@ class Call
             }
         }
 
-        $this->_resolvedTypes = $types;
-        $this->_resolvedDynamicTypes = $dynamicTypes;
-        $this->_mustCheckForCopy = $mustCheck;
+        $this->resolvedTypes = $types;
+        $this->resolvedDynamicTypes = $dynamicTypes;
+        $this->mustCheckForCopy = $mustCheck;
         return $params;
     }
 

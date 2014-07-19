@@ -57,7 +57,7 @@ class BranchGraph
             $branchNode = $parentBranchNode;
             $tempBranch = $tempBranch->getParentBranch();
             if (!$tempBranch) {
-                $this->_root = $parentBranchNode;
+                $this->root = $parentBranchNode;
             }
         }
     }

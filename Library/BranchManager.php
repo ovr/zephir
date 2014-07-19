@@ -41,9 +41,9 @@ class BranchManager
     {
         if ($this->currentBranch) {
             $branch->setParentBranch($this->currentBranch);
-            $this->_currentBranch = $branch;
+            $this->currentBranch = $branch;
         } else {
-            $this->_currentBranch = $branch;
+            $this->currentBranch = $branch;
         }
 
         $branch->setUniqueId($this->uniqueId);
@@ -61,7 +61,7 @@ class BranchManager
     public function removeBranch(Branch $branch)
     {
         $parentBranch = $branch->getParentBranch();
-        $this->_currentBranch = $parentBranch;
+        $this->currentBranch = $parentBranch;
         $this->level--;
     }
 

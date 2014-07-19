@@ -580,8 +580,7 @@ class FunctionCall extends Call
      */
     public function compile(Expression $expr, CompilationContext $compilationContext)
     {
-
-        $this->_expression = $expr;
+        $this->expression = $expr;
         $expression = $expr->getExpression();
 
         switch ($expression['call-type']) {
