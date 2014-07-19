@@ -65,6 +65,9 @@ class Config
             'call-gatherer-pass'                => true,
             'check-invalid-reads'               => false
         ),
+        'compiler' => array(
+            'name' => Utils\Compiler::DEFAULT_COMPILER
+        ),
         'namespace'   => '',
         'name'        => '',
         'description' => '',

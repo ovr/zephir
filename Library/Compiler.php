@@ -400,37 +400,6 @@ class Compiler
     }
 
     /**
-     * Returns current GCC version
-     *
-     * @return string
-     */
-    protected function getGccVersion()
-    {
-        if (file_exists('.temp/' . self::VERSION . '/gcc-version')) {
-            return file_get_contents('.temp/' . self::VERSION . '/gcc-version');
-        }
-
-        system('gcc -v 2> .temp/' . self::VERSION . '/gcc-version-temp');
-        $lines = file('.temp/' . self::VERSION . '/gcc-version-temp');
-        foreach ($lines as $line) {
-            if (strpos($line, 'LLVM') !== false) {
-                file_put_contents('.temp/' . self::VERSION . '/gcc-version', '4.8.0');
-
-                return '4.8.0';
-            }
-        }
-
-        $lastLine = $lines[count($lines) - 1];
-        if (preg_match('/[0-9]+\.[0-9]+\.[0-9]+/', $lastLine, $matches)) {
-            file_put_contents('.temp/' . self::VERSION . '/gcc-version', $matches[0]);
-
-            return $matches[0];
-        }
-
-        return '0.0.0';
-    }
-
-    /**
      * Initializes a Zephir extension
      *
      * @param CommandInterface $command
@@ -645,7 +614,7 @@ class Compiler
 
             $gccFlags = getenv('CFLAGS');
             if (!is_string($gccFlags)) {
-                $gccVersion = $this->getGccVersion();
+                $gccVersion = $this->getCompiler()->getVersion();
                 if (version_compare($gccVersion, '4.6.0', '>=')) {
                     $gccFlags = '-O2 -fvisibility=hidden -Wparentheses -flto';
                 } else {
@@ -664,6 +633,11 @@ class Compiler
         } else {
             exec('cd ext && make --silent -j2', $output, $exit);
         }
+    }
+
+    public function getCompiler()
+    {
+        return Utils\Compiler::factory($this->_config->get('name', 'compiler'));
     }
 
     /**
@@ -706,7 +680,7 @@ class Compiler
 
         $gccFlags = getenv('CFLAGS');
         if (!is_string($gccFlags)) {
-            $gccVersion = $this->getGccVersion();
+            $gccVersion = $this->getCompiler()->getVersion();
             if (version_compare($gccVersion, '4.6.0', '>=')) {
                 $gccFlags = '-O2 -fvisibility=hidden -Wparentheses -flto';
             } else {
