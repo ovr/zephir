@@ -26,15 +26,15 @@ namespace Zephir;
  */
 class ClassConstant
 {
-    protected $_name;
+    protected $name;
 
     protected $value;
 
-    protected $_docblock;
+    protected $docblock;
 
     public function __construct($name, $value, $docBlock)
     {
-        $this->_name = $name;
+        $this->name = $name;
         $this->_value = $value;
         $this->_docblock = $docBlock;
     }
@@ -46,7 +46,7 @@ class ClassConstant
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
