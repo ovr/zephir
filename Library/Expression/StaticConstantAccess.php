@@ -151,7 +151,7 @@ class StaticConstantAccess
         $constantDefinition = $classDefinition->getConstant($constant);
 
         if ($constantDefinition instanceof ClassConstant) {
-            $constant = $constantDefinition->getValue();
+            $constant = $constantDefinition->getExpression();
             if (isset($constant['value'])) {
                 $value = $constant['value'];
             } else {

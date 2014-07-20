@@ -26,17 +26,30 @@ namespace Zephir;
  */
 class ClassConstant
 {
+    /**
+     * Constant's name
+     *
+     * @var string
+     */
     protected $name;
 
-    protected $value;
+    /**
+     * AST
+     *
+     * @var array
+     */
+    protected $expression;
 
+    /**
+     * @var string
+     */
     protected $docblock;
 
-    public function __construct($name, $value, $docBlock)
+    public function __construct($name, array $expression, $docBlock)
     {
         $this->name = $name;
-        $this->_value = $value;
-        $this->_docblock = $docBlock;
+        $this->expression = $expression;
+        $this->docblock = $docBlock;
     }
 
     /**
@@ -52,13 +65,11 @@ class ClassConstant
     /**
      * Returns the constant's value
      *
-     * @todo Rewrite name
-     *
      * @return array
      */
-    public function getValue()
+    public function getExpression()
     {
-        return $this->_value;
+        return $this->expression;
     }
 
     /**
@@ -66,10 +77,10 @@ class ClassConstant
      *
      * @return mixed
      */
-    public function getValueValue()
+    public function getValue()
     {
-        if (isset($this->_value['value'])) {
-            return $this->_value['value'];
+        if (isset($this->expression['value'])) {
+            return $this->expression['value'];
         }
 
         return false;
@@ -82,7 +93,7 @@ class ClassConstant
      */
     public function getDocBlock()
     {
-        return $this->_docblock;
+        return $this->docblock;
     }
 
     /**
@@ -92,7 +103,7 @@ class ClassConstant
      */
     public function getType()
     {
-        return $this->_value['type'];
+        return $this->expression['type'];
     }
 
     /**
@@ -103,19 +114,19 @@ class ClassConstant
     public function compile(CompilationContext $compilationContext)
     {
 
-        switch ($this->_value['type']) {
+        switch ($this->expression['type']) {
 
             case 'long':
             case 'int':
-                $compilationContext->codePrinter->output("zend_declare_class_constant_long(" . $compilationContext->classDefinition->getClassEntry() . ", SL(\"" . $this->getName() . "\"), " . $this->_value['value'] . " TSRMLS_CC);");
+                $compilationContext->codePrinter->output("zend_declare_class_constant_long(" . $compilationContext->classDefinition->getClassEntry() . ", SL(\"" . $this->getName() . "\"), " . $this->getValue() . " TSRMLS_CC);");
                 break;
 
             case 'double':
-                $compilationContext->codePrinter->output("zend_declare_class_constant_double(" . $compilationContext->classDefinition->getClassEntry() . ", SL(\"" . $this->getName() . "\"), " . $this->_value['value'] . " TSRMLS_CC);");
+                $compilationContext->codePrinter->output("zend_declare_class_constant_double(" . $compilationContext->classDefinition->getClassEntry() . ", SL(\"" . $this->getName() . "\"), " . $this->getValue() . " TSRMLS_CC);");
                 break;
 
             case 'bool':
-                if ($this->_value['value'] == 'false') {
+                if ($this->expression['value'] == 'false') {
                     $compilationContext->codePrinter->output("zend_declare_class_constant_bool(" . $compilationContext->classDefinition->getClassEntry() . ", SL(\"" . $this->getName() . "\"), 0 TSRMLS_CC);");
                 } else {
                     $compilationContext->codePrinter->output("zend_declare_class_constant_bool(" . $compilationContext->classDefinition->getClassEntry() . ", SL(\"" . $this->getName() . "\"), 1 TSRMLS_CC);");
@@ -123,7 +134,7 @@ class ClassConstant
                 break;
 
             case 'string':
-                $compilationContext->codePrinter->output("zend_declare_class_constant_string(" . $compilationContext->classDefinition->getClassEntry() . ", SL(\"" . $this->getName() . "\"), \"" . Utils::addSlashes($this->_value['value']) . "\" TSRMLS_CC);");
+                $compilationContext->codePrinter->output("zend_declare_class_constant_string(" . $compilationContext->classDefinition->getClassEntry() . ", SL(\"" . $this->getName() . "\"), \"" . Utils::addSlashes($this->getValue()) . "\" TSRMLS_CC);");
                 break;
 
             default:

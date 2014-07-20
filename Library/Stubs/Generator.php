@@ -180,8 +180,7 @@ EOF;
     {
         $source = 'const ' . $constant->getName();
 
-        $value = $constant->getValueValue();
-
+        $value = $constant->getValue();
         switch ($constant->getType()) {
             case 'null':
                 $value .= 'null';
