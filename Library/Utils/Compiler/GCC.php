@@ -21,19 +21,21 @@ namespace Zephir\Utils\Compiler;
 
 use Zephir\Compiler;
 
-class GCC
+class GCC implements CompilerInterface
 {
+    const NAME = 'gcc';
+
     public function getVersion()
     {
         if (file_exists('.temp/' . Compiler::VERSION . '/gcc-version')) {
-            return file_get_contents('.temp/' . Compiler::VERSION . '/gcc-version');
+            return file_get_contents('.temp/' . Compiler::VERSION . '/' . $this::NAME . '-version');
         }
 
-        system('gcc -v 2> .temp/' . Compiler::VERSION . '/gcc-version-temp');
-        $lines = file('.temp/' . Compiler::VERSION . '/gcc-version-temp');
+        system($this::NAME . ' -v 2> .temp/' . Compiler::VERSION . '/' . $this::NAME . '-version-temp');
+        $lines = file('.temp/' . Compiler::VERSION . '/' . $this::NAME . '-version-temp');
         foreach ($lines as $line) {
             if (strpos($line, 'LLVM') !== false) {
-                file_put_contents('.temp/' . Compiler::VERSION . '/gcc-version', '4.8.0');
+                file_put_contents('.temp/' . Compiler::VERSION . '/' . $this::NAME . '-version', '4.8.0');
 
                 return '4.8.0';
             }
@@ -41,7 +43,7 @@ class GCC
 
         $lastLine = $lines[count($lines) - 1];
         if (preg_match('/[0-9]+\.[0-9]+\.[0-9]+/', $lastLine, $matches)) {
-            file_put_contents('.temp/' . Compiler::VERSION . '/gcc-version', $matches[0]);
+            file_put_contents('.temp/' . Compiler::VERSION . '/' . $this::NAME . '-version', $matches[0]);
 
             return $matches[0];
         }

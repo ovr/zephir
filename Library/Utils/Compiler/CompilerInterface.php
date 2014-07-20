@@ -19,9 +19,7 @@
 
 namespace Zephir\Utils\Compiler;
 
-use Zephir\Compiler;
 
-class LLVM_GCC extends GCC
-{
-    const NAME = 'llvm-gcc';
-}
+interface CompilerInterface {
+    public function getVersion();
+} 
