@@ -24,7 +24,6 @@ use Zephir\Compiler\Exception as CompilerException;
 use Zephir\Variable;
 use Zephir\Detectors\ReadDetector;
 use Zephir\Expression;
-use Zephir\CompiledExpression;
 use Zephir\Compiler;
 use Zephir\Utils;
 use Zephir\GlobalConstant;

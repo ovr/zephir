@@ -583,9 +583,9 @@ class MethodCall extends Call
         }
 
         if ($isExpecting) {
-            return new CompiledExpression('variable', $symbolVariable->getRealName(), $expression);
+            return new Compiled\Expression('variable', $symbolVariable->getRealName(), $expression);
         }
 
-        return new CompiledExpression('null', null, $expression);
+        return new Compiled\Expression('null', null, $expression);
     }
 }

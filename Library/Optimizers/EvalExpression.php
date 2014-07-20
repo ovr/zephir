@@ -22,7 +22,7 @@ namespace Zephir\Optimizers;
 use Zephir\CompilationContext;
 use Zephir\Compiler\Exception as CompilerException;
 use Zephir\Expression;
-use Zephir\LiteralCompiledExpression;
+use Zephir\Compiled\LiteralExpression;
 use Zephir\Branch;
 use Zephir\Variable;
 
@@ -148,7 +148,7 @@ class EvalExpression
                          */
                         if ($possibleValueBranch->getType() == Branch::TYPE_ROOT) {
 
-                            if ($possibleValue instanceof LiteralCompiledExpression) {
+                            if ($possibleValue instanceof LiteralExpression) {
 
                                 switch ($possibleValue->getType()) {
 

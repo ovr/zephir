@@ -89,7 +89,7 @@ class ArrayType extends AbstractType
      * @param CompilationContext $compilationContext
      * @param Call $call
      * @param array $expression
-     * @return bool|\Zephir\CompiledExpression
+     * @return bool|\Zephir\Compiled\Expression
      */
     public function join($caller, CompilationContext $compilationContext, Call $call, array $expression)
     {

@@ -430,10 +430,10 @@ class FunctionCall extends Call
         }
 
         if ($this->isExpectingReturn()) {
-            return new CompiledExpression('variable', $symbolVariable->getRealName(), $expression);
+            return new Compiled\Expression('variable', $symbolVariable->getRealName(), $expression);
         }
 
-        return new CompiledExpression('null', null, $expression);
+        return new Compiled\Expression('null', null, $expression);
     }
 
     /**
@@ -566,10 +566,10 @@ class FunctionCall extends Call
         }
 
         if ($this->isExpectingReturn()) {
-            return new CompiledExpression('variable', $symbolVariable->getRealName(), $expression);
+            return new Compiled\Expression('variable', $symbolVariable->getRealName(), $expression);
         }
 
-        return new CompiledExpression('null', null, $expression);
+        return new Compiled\Expression('null', null, $expression);
     }
 
     /**
@@ -592,7 +592,7 @@ class FunctionCall extends Call
                 return $this->_callDynamic($expression, $compilationContext);
         }
 
-        return new CompiledExpression('null', null, $expression);
+        return new Compiled\Expression('null', null, $expression);
     }
 
     /**

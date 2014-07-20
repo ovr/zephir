@@ -24,7 +24,7 @@ use Zephir\Operators\BaseOperator;
 use Zephir\CompilationContext;
 use Zephir\Expression;
 use Zephir\Compiler\Exception as CompilerException;
-use Zephir\CompiledExpression;
+use Zephir\Compiled\Expression as CompiledExpression;
 use Zephir\Statements\Let\Variable as LetVariable;
 use Zephir\Builder\FunctionCallBuilder;
 

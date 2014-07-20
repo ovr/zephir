@@ -47,7 +47,7 @@ abstract class AbstractType
      * @param Call $call
      * @param array $expression
      * @throws CompilerException
-     * @return bool|\Zephir\CompiledExpression
+     * @return bool|\Zephir\Compiled\Expression
      */
     public function invokeMethod($methodName, $caller, CompilationContext $compilationContext, Call $call, array $expression)
     {

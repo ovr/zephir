@@ -17,7 +17,7 @@
  +--------------------------------------------------------------------------+
 */
 
-namespace Zephir;
+namespace Zephir\Compiled;
 
 /**
  * LiteralCompiledExpression
@@ -25,7 +25,7 @@ namespace Zephir;
  * This represent a compiled expression as CompiledExpression, but the contents of
  * the resolved code is potentially a simple literal expression
  */
-class LiteralCompiledExpression extends CompiledExpression
+class LiteralExpression extends Expression
 {
 
 }

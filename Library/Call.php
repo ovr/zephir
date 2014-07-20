@@ -192,13 +192,12 @@ class Call
     }
 
     /**
-     * Resolves paramameters
-     *
-     * @param array $parameters
+     * @param $parameters
      * @param CompilationContext $compilationContext
-     * @param array $expression
-     * @param boolean $readOnly
-     * @return array|null|CompiledExpression[]
+     * @param $expression
+     * @param bool $readOnly
+     * @return Compiled\Expression[]
+     * @throws Compiler\Exception
      */
     public function getResolvedParamsAsExpr($parameters, CompilationContext $compilationContext, $expression, $readOnly = false)
     {
@@ -269,7 +268,7 @@ class Call
                     continue;
                 }
 
-                if ($parameter['parameter'] instanceof CompiledExpression) {
+                if ($parameter['parameter'] instanceof Compiled\Expression) {
                     $params[] = $parameter['parameter'];
                     continue;
                 }

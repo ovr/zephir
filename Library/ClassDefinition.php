@@ -412,6 +412,7 @@ class ClassDefinition
         if (isset($this->constants[$name])) {
             return true;
         }
+
         /**
          * @todo add code to check if constant is defined in interfaces
          */

@@ -42,7 +42,7 @@ class CharType extends AbstractType
      * @param CompilationContext $compilationContext
      * @param Call $call
      * @param array $expression
-     * @return bool|mixed|\Zephir\CompiledExpression
+     * @return bool|mixed|\Zephir\Compiled\Expression
      */
     public function toHex($caller, CompilationContext $compilationContext, Call $call, array $expression)
     {

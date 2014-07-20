@@ -21,10 +21,9 @@ namespace Zephir\Expression;
 
 use Zephir\Variable;
 use Zephir\CompilationContext;
-use Zephir\CompiledExpression;
+use Zephir\Compiled\Expression as CompiledExpression;
 use Zephir\Compiler\Exception as CompilerException;
-use Zephir\Expression;
-use Zephir\LiteralCompiledExpression;
+use Zephir\Compiled\LiteralExpression;
 use Zephir\Utils;
 
 /**
@@ -151,7 +150,7 @@ class Constants
 
         if ($isZephirConstant && !in_array($constantName, $this->resources)) {
             $constant = $compilationContext->compiler->getConstant($constantName);
-            return new LiteralCompiledExpression($constant[0], $constant[1], $expression);
+            return new LiteralExpression($constant[0], $constant[1], $expression);
         }
 
         if ($isPhpConstant && !in_array($constantName, $mergedConstants)) {
@@ -161,19 +160,19 @@ class Constants
             switch ($type) {
 
                 case 'integer':
-                    return new LiteralCompiledExpression('int', $constantName, $expression);
+                    return new LiteralExpression('int', $constantName, $expression);
 
                 case 'double':
-                    return new LiteralCompiledExpression('double', $constantName, $expression);
+                    return new LiteralExpression('double', $constantName, $expression);
 
                 case 'string':
-                    return new LiteralCompiledExpression('string', Utils::addSlashes($constantName), $expression);
+                    return new LiteralExpression('string', Utils::addSlashes($constantName), $expression);
 
                 case 'object':
                     throw new CompilerException('?');
 
                 default:
-                    return new LiteralCompiledExpression($type, $constantName, $expression);
+                    return new LiteralExpression($type, $constantName, $expression);
             }
         }
 
@@ -195,7 +194,7 @@ class Constants
             }
 
             $compilationContext->logger->warning("Magic constant '" . $constantName . "' is not supported", 'not-supported-magic-constant', $expression);
-            return new LiteralCompiledExpression('null', null, $expression);
+            return new LiteralExpression('null', null, $expression);
         }
 
         if ($this->_expecting && $this->_expectingVariable) {

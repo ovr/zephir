@@ -956,10 +956,10 @@ class Variable
     /**
      * Sets the lastest CompiledExpression assigned to a variable
      *
-     * @param CompiledExpression $possibleValue
+     * @param Compiled\Expression $possibleValue
      * @param CompilationContext $compilationContext
      */
-    public function setPossibleValue(CompiledExpression $possibleValue, CompilationContext $compilationContext)
+    public function setPossibleValue(Compiled\Expression $possibleValue, CompilationContext $compilationContext)
     {
         $this->_possibleValue = $possibleValue;
         $this->_possibleValueBranch = $compilationContext->branchManager->getCurrentBranch();

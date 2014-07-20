@@ -18,6 +18,7 @@
 */
 
 namespace Zephir\Compiled;
+use Zephir\CompilationContext;
 
 /**
  * CompiledExpression

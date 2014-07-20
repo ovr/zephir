@@ -21,9 +21,8 @@ namespace Zephir\Expression;
 
 use Zephir\Variable;
 use Zephir\CompilationContext;
-use Zephir\CompiledExpression;
+use Zephir\Compiled\Expression as CompiledExpression;
 use Zephir\Compiler\Exception as CompilerException;
-use Zephir\Expression;
 
 /**
  * StaticPropertyAccess

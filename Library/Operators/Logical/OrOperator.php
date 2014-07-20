@@ -23,7 +23,7 @@ use Zephir\CompilationContext;
 use Zephir\Expression;
 use Zephir\Statements\LetStatement;
 use Zephir\Compiler\Exception as CompilerException;
-use Zephir\CompiledExpression;
+use Zephir\Compiled\Expression as CompiledExpression;
 
 class OrOperator extends LogicalBaseOperator
 {

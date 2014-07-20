@@ -23,7 +23,7 @@ use Zephir\Compiler\Exception as CompilerException;
 use Zephir\Operators\BaseOperator;
 use Zephir\CompilationContext;
 use Zephir\Expression;
-use Zephir\CompiledExpression;
+use Zephir\Compiled\Expression as CompiledExpression;
 
 class MinusOperator extends BaseOperator
 {

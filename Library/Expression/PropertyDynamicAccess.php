@@ -20,12 +20,12 @@
 
 namespace Zephir\Expression;
 
+use Zephir\Expression;
 use Zephir\Statements\LetStatement;
 use Zephir\Variable;
 use Zephir\CompilationContext;
-use Zephir\CompiledExpression;
+use Zephir\Compiled\Expression as CompiledExpression;
 use Zephir\Compiler\Exception as CompilerException;
-use Zephir\Expression;
 
 /**
  * PropertyDynamicAccess

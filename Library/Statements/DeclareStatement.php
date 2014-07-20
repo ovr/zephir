@@ -22,7 +22,7 @@ namespace Zephir\Statements;
 use Zephir\CompilationContext;
 use Zephir\Compiler\Exception as CompilerException;
 use Zephir\Expression;
-use Zephir\LiteralCompiledExpression;
+use Zephir\Compiled\LiteralExpression;
 
 /**
  * DeclareStatement
@@ -254,7 +254,7 @@ class DeclareStatement extends StatementAbstract
                 $symbolVariable->setDefaultInitValue($defaultValue);
                 $symbolVariable->setIsInitialized(true, $compilationContext, $variable);
                 $symbolVariable->increaseMutates();
-                $symbolVariable->setPossibleValue(new LiteralCompiledExpression($defaultType, $defaultValue, $variable['expr']), $compilationContext);
+                $symbolVariable->setPossibleValue(new LiteralExpression($defaultType, $defaultValue, $variable['expr']), $compilationContext);
             }
         }
     }

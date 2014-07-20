@@ -232,7 +232,7 @@ class Expression
 
         $compilationContext->codePrinter->output('array_init(' . $symbolVariable->getName() . ');');
 
-        return new CompiledExpression('variable', $symbolVariable->getRealName(), $expression);
+        return new Compiled\Expression('variable', $symbolVariable->getRealName(), $expression);
     }
 
     /**
@@ -240,7 +240,7 @@ class Expression
      *
      * @param array $expression
      * @param CompilationContext $compilationContext
-     * @return CompiledExpression
+     * @return Compiled\Expression
      */
     public function compileTypeHint($expression, CompilationContext $compilationContext)
     {
@@ -268,7 +268,7 @@ class Expression
      * Resolves an expression
      *
      * @param CompilationContext $compilationContext
-     * @return bool|CompiledExpression|mixed
+     * @return bool|Compiled\Expression|mixed
      * @throws CompilerException
      */
     public function compile(CompilationContext $compilationContext)
@@ -279,25 +279,25 @@ class Expression
         switch ($type) {
 
             case 'null':
-                return new LiteralCompiledExpression('null', null, $expression);
+                return new Compiled\LiteralExpression('null', null, $expression);
 
             case 'int':
             case 'integer':
-                return new LiteralCompiledExpression('int', $expression['value'], $expression);
+                return new Compiled\LiteralExpression('int', $expression['value'], $expression);
 
             case 'double':
-                return new LiteralCompiledExpression('double', $expression['value'], $expression);
+                return new Compiled\LiteralExpression('double', $expression['value'], $expression);
 
             case 'bool':
-                return new LiteralCompiledExpression('bool', $expression['value'], $expression);
+                return new Compiled\LiteralExpression('bool', $expression['value'], $expression);
 
             case 'string':
                 if (!$this->_stringOperation) {
                     if (ctype_digit($expression['value'])) {
-                        return new CompiledExpression('int', $expression['value'], $expression);
+                        return new Compiled\Expression('int', $expression['value'], $expression);
                     }
                 }
-                return new LiteralCompiledExpression('string', str_replace(PHP_EOL, '\\n', $expression['value']), $expression);
+                return new Compiled\LiteralExpression('string', str_replace(PHP_EOL, '\\n', $expression['value']), $expression);
 
             case 'char':
                 if (!strlen($expression['value'])) {
@@ -310,10 +310,10 @@ class Expression
                         throw new CompilerException("Invalid char literal: '" . $expression['value'] . "'", $expression);
                     }
                 }
-                return new LiteralCompiledExpression('char', $expression['value'], $expression);
+                return new Compiled\LiteralExpression('char', $expression['value'], $expression);
 
             case 'variable':
-                return new CompiledExpression('variable', $expression['value'], $expression);
+                return new Compiled\Expression('variable', $expression['value'], $expression);
 
             case 'constant':
                 $constant = new Constants();
@@ -544,7 +544,7 @@ class Expression
                 $resolved = $expr->compile($compilationContext);
                 if (($compilationContext->codePrinter->getNumberPrints() - $numberPrints) <= 1) {
                     if (strpos($resolved->getCode(), ' ') !== false) {
-                        return new CompiledExpression($resolved->getType(), '(' . $resolved->getCode() . ')', $expression);
+                        return new Compiled\Expression($resolved->getType(), '(' . $resolved->getCode() . ')', $expression);
                     }
                 }
                 return $resolved;
