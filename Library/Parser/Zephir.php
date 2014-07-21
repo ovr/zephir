@@ -8,7 +8,9 @@ use Zephir\Definitions\ClassDefinition;
 
 class Zephir implements ParserInterface
 {
-
+    /**
+     * @throws Exception
+     */
     public function __construct()
     {
         if (!file_exists(ZEPHIRPATH . '/bin/zephir-parser')) {
