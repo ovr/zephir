@@ -29,35 +29,34 @@ use Zephir\Compiler\Exception as CompilerException;
  */
 class CompilerFile
 {
+    protected $namespace;
 
-    protected $_namespace;
+    protected $className;
 
-    protected $_className;
+    protected $filePath;
 
-    protected $_filePath;
+    protected $ir;
 
-    protected $_ir;
+    protected $originalNode;
 
-    protected $_originalNode;
-
-    protected $_compiledFile;
+    protected $compiledFile;
 
     /**
      * @var ClassDefinition
      */
-    protected $_classDefinition;
+    protected $classDefinition;
 
-    protected $_headerCBlocks;
+    protected $headerCBlocks;
 
     /**
      * @var Config
      */
-    protected $_config = null;
+    protected $config = null;
 
     /**
      * @var Logger
      */
-    protected $_logger = null;
+    protected $logger = null;
 
     /**
      * CompilerFile constructor
@@ -67,13 +66,13 @@ class CompilerFile
      */
     public function __construct($className, $filePath, Config $config, Logger $logger)
     {
-        $this->_className = $className;
-        $this->_filePath = $filePath;
-        $this->_compiledFilePath = preg_replace('/\.zep$/', '', $className);
-        $this->_filesCompiled = array();
-        $this->_headerCBlocks = array();
-        $this->_config = $config;
-        $this->_logger = $logger;
+        $this->className = $className;
+        $this->filePath = $filePath;
+        $this->compiledFilePath = preg_replace('/\.zep$/', '', $className);
+        $this->filesCompiled = array();
+        $this->headerCBlocks = array();
+        $this->config = $config;
+        $this->logger = $logger;
     }
 
     /**
@@ -83,7 +82,7 @@ class CompilerFile
      */
     public function getClassDefinition()
     {
-        return $this->_classDefinition;
+        return $this->classDefinition;
     }
 
     /**
@@ -94,8 +93,8 @@ class CompilerFile
     public function genIR()
     {
 
-        $compilePath = '.temp' . DIRECTORY_SEPARATOR . Compiler::VERSION . DIRECTORY_SEPARATOR . str_replace(DIRECTORY_SEPARATOR, '_', realpath($this->_filePath)) . ".js";
-        $zepRealPath = realpath($this->_filePath);
+        $compilePath = '.temp' . DIRECTORY_SEPARATOR . Compiler::VERSION . DIRECTORY_SEPARATOR . str_replace(DIRECTORY_SEPARATOR, '_', realpath($this->filePath)) . ".js";
+        $zepRealPath = realpath($this->filePath);
 
         if (!file_exists(ZEPHIRPATH . '/bin/zephir-parser')) {
             throw new Exception('zephir-parser was not found');
@@ -130,7 +129,7 @@ class CompilerFile
      */
     public function compileClass(CompilationContext $compilationContext, $namespace, $topStatement)
     {
-        $classDefinition = $this->_classDefinition;
+        $classDefinition = $this->classDefinition;
 
         /**
          * Do the compilation
@@ -167,8 +166,8 @@ class CompilerFile
             }
         }
 
-        if (count($this->_headerCBlocks) > 0) {
-            $code .= implode($this->_headerCBlocks, PHP_EOL) . PHP_EOL;
+        if (count($this->headerCBlocks) > 0) {
+            $code .= implode($this->headerCBlocks, PHP_EOL) . PHP_EOL;
         }
 
         /**
@@ -228,7 +227,7 @@ class CompilerFile
             }
         }
 
-        $this->_classDefinition = $classDefinition;
+        $this->classDefinition = $classDefinition;
     }
 
     /**
@@ -238,7 +237,7 @@ class CompilerFile
      * @param ClassDefinition $classDefinition
      * @throws CompilerException
      */
-    protected function _processShorcuts(array $property, ClassDefinition $classDefinition)
+    protected function processShorcuts(array $property, ClassDefinition $classDefinition)
     {
         foreach ($property['shortcuts'] as $shortcut) {
 
@@ -401,7 +400,7 @@ class CompilerFile
                      * Check and process shortcuts
                      */
                     if (isset($property['shortcuts'])) {
-                        $this->_processShorcuts($property, $classDefinition);
+                        $this->processShorcuts($property, $classDefinition);
                     }
                 }
             }
@@ -438,7 +437,7 @@ class CompilerFile
             }
         }
 
-        $this->_classDefinition = $classDefinition;
+        $this->classDefinition = $classDefinition;
     }
 
     /**
@@ -451,7 +450,7 @@ class CompilerFile
         $ir = $this->genIR();
 
         if (!is_array($ir)) {
-            throw new Exception("Cannot parse file: " . realpath($this->_filePath));
+            throw new Exception("Cannot parse file: " . realpath($this->filePath));
         }
 
         if (isset($ir['type']) && $ir['type'] == 'error') {
@@ -461,7 +460,7 @@ class CompilerFile
         /**
          * Alias Manager
          */
-        $this->_aliasManager = new AliasManager();
+        $this->aliasManager = new AliasManager();
 
         /**
          * Traverse the top level statements looking for the namespace
@@ -475,14 +474,14 @@ class CompilerFile
                         throw new CompilerException("The namespace must be defined just one time", $topStatement);
                     }
                     $namespace = $topStatement['name'];
-                    $this->_namespace = $namespace;
+                    $this->namespace = $namespace;
                     if (!preg_match('/^[A-Z]/', $namespace)) {
                         throw new CompilerException("Namespace '" . $namespace . "' must be in camelized-form", $topStatement);
                     }
                     break;
 
                 case 'cblock':
-                    $this->_headerCBlocks[] = $topStatement['value'];
+                    $this->headerCBlocks[] = $topStatement['value'];
                     break;
             }
         }
@@ -504,7 +503,7 @@ class CompilerFile
                     $class = true;
                     $name = $topStatement['name'];
                     $this->preCompileClass($namespace, $topStatement);
-                    $this->_originalNode = $topStatement;
+                    $this->originalNode = $topStatement;
                     break;
 
                 case 'interface':
@@ -514,14 +513,14 @@ class CompilerFile
                     $interface = true;
                     $name = $topStatement['name'];
                     $this->preCompileInterface($namespace, $topStatement);
-                    $this->_originalNode = $topStatement;
+                    $this->originalNode = $topStatement;
                     break;
 
                 case 'use':
                     if ($interface || $class) {
                         throw new CompilerException("Aliasing must be done before declaring any class or interface", $topStatement);
                     }
-                    $this->_aliasManager->add($topStatement);
+                    $this->aliasManager->add($topStatement);
                     break;
             }
         }
@@ -530,11 +529,11 @@ class CompilerFile
             throw new CompilerException("Every file must contain at least a class or an interface", $topStatement);
         }
 
-        if (strtolower($this->_filePath) != strtolower(str_replace('\\', '/', $namespace) . '/' . $name) . '.zep') {
-            throw new CompilerException('Unexpected class name ' . str_replace('\\', '/', $namespace) . '\\' . $name . ' in file: ' . $this->_filePath);
+        if (strtolower($this->filePath) != strtolower(str_replace('\\', '/', $namespace) . '/' . $name) . '.zep') {
+            throw new CompilerException('Unexpected class name ' . str_replace('\\', '/', $namespace) . '\\' . $name . ' in file: ' . $this->filePath);
         }
 
-        $this->_ir = $ir;
+        $this->ir = $ir;
     }
 
     /**
@@ -544,7 +543,7 @@ class CompilerFile
      */
     public function getCompiledFile()
     {
-        return $this->_compiledFile;
+        return $this->compiledFile;
     }
 
     /**
@@ -554,7 +553,7 @@ class CompilerFile
      */
     public function checkDependencies(Compiler $compiler)
     {
-        $classDefinition = $this->_classDefinition;
+        $classDefinition = $this->classDefinition;
 
         $extendedClass = $classDefinition->getExtendsClass();
         if ($extendedClass) {
@@ -567,7 +566,7 @@ class CompilerFile
                         $extendedDefinition = $compiler->getInternalClassDefinition($extendedClass);
                         $classDefinition->setExtendsClassDefinition($extendedDefinition);
                     } else {
-                        throw new CompilerException('Cannot locate class "' . $extendedClass . '" when extending class "' . $classDefinition->getCompleteName() . '"', $this->_originalNode);
+                        throw new CompilerException('Cannot locate class "' . $extendedClass . '" when extending class "' . $classDefinition->getCompleteName() . '"', $this->originalNode);
                     }
                 }
             } else {
@@ -579,7 +578,7 @@ class CompilerFile
                         $extendedDefinition = $compiler->getInternalClassDefinition($extendedClass);
                         $classDefinition->setExtendsClassDefinition($extendedDefinition);
                     } else {
-                        throw new CompilerException('Cannot locate interface "' . $extendedClass . '" when extending interface "' . $classDefinition->getCompleteName() . '"', $this->_originalNode);
+                        throw new CompilerException('Cannot locate interface "' . $extendedClass . '" when extending interface "' . $classDefinition->getCompleteName() . '"', $this->originalNode);
                     }
                 }
             }
@@ -595,7 +594,7 @@ class CompilerFile
     public function compile(Compiler $compiler, StringsManager $stringsManager)
     {
 
-        if (!$this->_ir) {
+        if (!$this->ir) {
             throw new CompilerException('IR related to compiled file is missing');
         }
 
@@ -612,12 +611,12 @@ class CompilerFile
         /**
          * Set global config in the compilation context
          */
-        $compilationContext->config = $this->_config;
+        $compilationContext->config = $this->config;
 
         /**
          * Set global logger in the compilation context
          */
-        $compilationContext->logger = $this->_logger;
+        $compilationContext->logger = $this->logger;
 
         /**
          * Set global strings manager
@@ -639,13 +638,13 @@ class CompilerFile
         /**
          * Alias manager
          */
-        $compilationContext->aliasManager = $this->_aliasManager;
+        $compilationContext->aliasManager = $this->aliasManager;
 
         $codePrinter->outputBlankLine();
 
         $class = false;
         $interface = false;
-        foreach ($this->_ir as $topStatement) {
+        foreach ($this->ir as $topStatement) {
 
             switch ($topStatement['type']) {
 
@@ -654,7 +653,7 @@ class CompilerFile
                         throw new CompilerException("More than one class defined in the same file", $topStatement);
                     }
                     $class = true;
-                    $this->compileClass($compilationContext, $this->_namespace, $topStatement);
+                    $this->compileClass($compilationContext, $this->namespace, $topStatement);
                     break;
 
                 case 'interface':
@@ -662,7 +661,7 @@ class CompilerFile
                         throw new CompilerException("More than one class defined in the same file", $topStatement);
                     }
                     $class = true;
-                    $this->compileClass($compilationContext, $this->_namespace, $topStatement);
+                    $this->compileClass($compilationContext, $this->namespace, $topStatement);
                     break;
 
                 case 'comment':
@@ -672,13 +671,13 @@ class CompilerFile
             }
         }
 
-        $classDefinition = $this->_classDefinition;
+        $classDefinition = $this->classDefinition;
         if (!$classDefinition) {
-            $this->_ir = null;
+            $this->ir = null;
             return;
         }
 
-        $classDefinition->setOriginalNode($this->_originalNode);
+        $classDefinition->setOriginalNode($this->originalNode);
 
         $completeName = $classDefinition->getCompleteName();
 
@@ -729,8 +728,8 @@ class CompilerFile
         /**
          * Add to file compiled
          */
-        $this->_compiledFile = $path . '.c';
-        $this->_ir = null;
+        $this->compiledFile = $path . '.c';
+        $this->ir = null;
     }
 
     /**
@@ -741,6 +740,6 @@ class CompilerFile
      */
     protected function getFullName($name)
     {
-        return Utils::getFullName($name, $this->_namespace, $this->_aliasManager);
+        return Utils::getFullName($name, $this->namespace, $this->aliasManager);
     }
 }
