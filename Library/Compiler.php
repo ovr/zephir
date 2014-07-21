@@ -93,6 +93,12 @@ class Compiler
         $this->_stringManager = new StringsManager();
     }
 
+    protected function parseFile(Compiler\File $file)
+    {
+        $parser = new Parser\Zephir();
+        $parser->parse($file);
+    }
+
     /**
      * Pre-compiles classes creating a CompilerFile definition
      *
@@ -100,19 +106,25 @@ class Compiler
      */
     protected function _preCompile($filePath)
     {
-        if (preg_match('/\.zep$/', $filePath)) {
-            $className = str_replace('/', '\\', $filePath);
-            $className = preg_replace('/.zep$/', '', $className);
+        $compilerFile = new Compiler\File($filePath);
+        $this->parseFile($compilerFile);
+        var_dump($compilerFile);
+        die();
 
-            $className = join('\\', array_map(function ($i) {
-                return ucfirst($i);
-            }, explode('\\', $className)));
-
-            $this->_files[$className] = new CompilerFile($className, $filePath, $this->_config, $this->_logger);
-            $this->_files[$className]->preCompile();
-
-            $this->_definitions[$className] = $this->_files[$className]->getClassDefinition();
-        }
+//        if (preg_match('/\.zep$/', $filePath)) {
+//            $className = str_replace('/', '\\', $filePath);
+//            $className = preg_replace('/.zep$/', '', $className);
+//
+//            $className = join('\\', array_map(function ($i) {
+//                return ucfirst($i);
+//            }, explode('\\', $className)));
+//
+//
+//            $this->_files[$className] = new CompilerFile($className, $filePath, $this->_config, $this->_logger);
+//            $this->_files[$className]->preCompile();
+//
+//            $this->_definitions[$className] = $this->_files[$className]->getClassDefinition();
+//        }
     }
 
     /**

@@ -101,9 +101,7 @@ class CompilerFile
         $compilePath = '.temp' . DIRECTORY_SEPARATOR . Compiler::VERSION . DIRECTORY_SEPARATOR . str_replace(DIRECTORY_SEPARATOR, '_', realpath($this->filePath)) . ".js";
         $zepRealPath = realpath($this->filePath);
 
-        if (!file_exists(ZEPHIRPATH . '/bin/zephir-parser')) {
-            throw new Exception('zephir-parser was not found');
-        }
+
 
         $changed = false;
         if (file_exists($compilePath)) {
