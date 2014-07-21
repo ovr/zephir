@@ -2,3 +2,6 @@
 	path = json-c
 	url = git://github.com/phalcon/json-c.git
 	branch = master
+[submodule "parser"]
+	path = parser
+	url = https://github.com/zephir-lang/parser.git
