@@ -4,6 +4,7 @@ namespace Zephir\Parser;
 
 use Zephir\Compiler;
 use Zephir\Compiler\File;
+use Zephir\Definitions\ClassDefinition;
 
 class Zephir implements ParserInterface
 {
@@ -22,7 +23,9 @@ class Zephir implements ParserInterface
         foreach($json as $row) {
             switch($row->type) {
                 case 'class':
+                    $classDefinition = new ClassDefinition($row->name, $row->docblock);
 
+                    $file->addClass($classDefinition);
                     break;
             }
         }

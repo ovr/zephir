@@ -17,48 +17,24 @@
  +--------------------------------------------------------------------------+
 */
 
-namespace Zephir\Compiler;
+namespace Zephir\Definitions;
 
-
-use Zephir\Definitions\ClassDefinition;
-
-class File
+class ClassDefinition
 {
     /**
-     * @var array
+     * @var string|null
      */
-    protected $pathinfo;
+    private $docblock;
 
-    /**
-     * @var ClassDefinition
+    private $methods = [];
+
+    private $name;
+
+    /***
+     * @param $ast
      */
-    protected $classes = [];
-
-    public function __construct($filePath)
+    public function __construct($name, $docblock = null)
     {
-        if (!is_file($filePath)) {
-            throw new Exception('Couldn`t find file by path: ' . $filePath);
-        }
-
-        if (!is_readable($filePath)) {
-            throw new Exception('File is not readable: ' . $filePath);
-        }
-
-        $this->pathinfo = pathinfo($filePath);
-    }
-
-    public function addClass(ClassDefinition $class)
-    {
-        $this->classes[] = $class;
-    }
-
-    public function getFilepath()
-    {
-        return $this->pathinfo['dirname'] . DIRECTORY_SEPARATOR . $this->pathinfo['basename'];
-    }
-
-    public function getFileName()
-    {
-        return $this->pathinfo['filename'];
+        $this->name = $name;
     }
 }
