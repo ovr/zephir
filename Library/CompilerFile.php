@@ -29,34 +29,39 @@ use Zephir\Compiler\Exception as CompilerException;
  */
 class CompilerFile
 {
-    protected $namespace;
+    private $namespace;
 
-    protected $className;
+    private $className;
 
-    protected $filePath;
+    private $filePath;
 
-    protected $ir;
+    private $ir;
 
-    protected $originalNode;
+    private $originalNode;
 
-    protected $compiledFile;
+    private $compiledFile;
 
     /**
      * @var ClassDefinition
      */
-    protected $classDefinition;
+    private $classDefinition;
 
-    protected $headerCBlocks;
+    private $headerCBlocks;
 
     /**
      * @var Config
      */
-    protected $config = null;
+    private $config = null;
 
     /**
      * @var Logger
      */
-    protected $logger = null;
+    private $logger = null;
+
+    /**
+     * @var AliasManager
+     */
+    private $aliasManager;
 
     /**
      * CompilerFile constructor
