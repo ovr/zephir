@@ -27,8 +27,6 @@ class Compiler
 
     const LLVM_GCC = 'llvm-gcc';
 
-    const DEFAULT_COMPILER = self::GCC;
-
     /**
      * @param $name
      * @return Compiler\GCC|Compiler\LLVM_GCC

@@ -76,15 +76,17 @@ class Config
         'code-generators' => array(
             'Zephir' => array(
                 'class' => '\Zephir\CodePrinter\Zephir',
+                'output-folder' => 'ext',
                 'compiler' => array(
-                    'name' => Utils\Compiler::DEFAULT_COMPILER
+                    'name' => Utils\Compiler::GCC
                 ),
                 'require' => array(
                     'version' => '>=4.8.0'
                 )
             ),
             'PHP' => array(
-                'class' => '\Zephir\CodePrinter\PHP'
+                'class' => '\Zephir\CodePrinter\PHP',
+                'output-folder' => 'ext-php'
             )
         ),
         'namespace'   => '',
