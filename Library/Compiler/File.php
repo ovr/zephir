@@ -19,7 +19,7 @@
 
 namespace Zephir\Compiler;
 
-
+use Zephir\Compiler as MainCompiler;
 use Zephir\Definitions\ClassDefinition;
 
 class File
@@ -49,7 +49,7 @@ class File
 
     public function addClass(ClassDefinition $class)
     {
-        $this->classes[] = $class;
+        $this->classes[$class->getName()] = $class;
     }
 
     public function preCompile()
@@ -58,6 +58,16 @@ class File
     }
 
     public function compile()
+    {
+
+    }
+
+    public function checkDependencies(MainCompiler $compiler)
+    {
+
+    }
+
+    public function getCompiledFile()
     {
 
     }

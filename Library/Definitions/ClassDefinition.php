@@ -74,4 +74,12 @@ class ClassDefinition
     {
         $this->methods = $methods;
     }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }
