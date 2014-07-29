@@ -25,7 +25,7 @@ class Zephir implements ParserInterface
         foreach($json as $row) {
             switch($row->type) {
                 case 'class':
-                    $classDefinition = new ClassDefinition($row->name, $row);
+                    $classDefinition = new ClassDefinition($row->name, 'not implemented');
 
                     $file->addClass($classDefinition);
                     break;
@@ -38,7 +38,7 @@ class Zephir implements ParserInterface
         return '.temp' . DIRECTORY_SEPARATOR . Compiler::VERSION . DIRECTORY_SEPARATOR . $filename . ".js";
     }
 
-    public function parseFile($file)
+    public function parseFile(File $file)
     {
         $outputPath = $this->getCachePath($file->getFileName());
         system(ZEPHIRPATH . '/bin/zephir-parser ' . $file->getFilepath() . ' > ' . $outputPath);
