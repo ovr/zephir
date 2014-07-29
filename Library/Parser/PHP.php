@@ -8,6 +8,6 @@ class PHP implements ParserInterface
 {
     public function parse(File $file)
     {
-        
+
     }
 } 

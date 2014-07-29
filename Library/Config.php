@@ -65,6 +65,14 @@ class Config
             'call-gatherer-pass'                => true,
             'check-invalid-reads'               => false
         ),
+        'parsers' => array(
+            'zep' => array(
+                'class' => '\Zephir\Parser\Zephir'
+            ),
+            'php' => array(
+                'class' => '\Zephir\Parser\PHP'
+            )
+        ),
         'compiler' => array(
             'name' => Utils\Compiler::DEFAULT_COMPILER
         ),

@@ -758,6 +758,14 @@ class Compiler
     }
 
     /**
+     * @return Config
+     */
+    public function getConfig()
+    {
+        return $this->_config;
+    }
+
+    /**
      * Checks if a file must be copied
      *
      * @param string $src
