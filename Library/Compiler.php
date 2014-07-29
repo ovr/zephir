@@ -115,11 +115,6 @@ class Compiler
         $this->_files[$filePath] = $compilerFile;
     }
 
-    /**
-     * @param string $path
-     *
-     * @throws CompilerException
-     */
     protected function _recursivePreCompile($path)
     {
         if (!is_string($path)) {
@@ -464,7 +459,7 @@ class Compiler
          */
         $this->_recursivePreCompile(str_replace('\\', DIRECTORY_SEPARATOR, $namespace));
         if (!count($this->_files)) {
-            throw new Exception("Zephir files to compile weren't found");
+            throw new Exception("Files to compile weren't found");
         }
 
         /**
@@ -474,121 +469,122 @@ class Compiler
             $compileFile->checkDependencies($this);
         }
 
-        /**
-         * Convert C-constants into PHP constants
-         */
-        $constantsSources = $this->_config->get('constants-sources');
-        if (is_array($constantsSources)) {
-            $this->_loadConstantsSources($constantsSources);
-        }
 
-        /**
-         * Set extension globals
-         */
-        $globals = $this->_config->get('globals');
-        if (is_array($globals)) {
-            $this->_setExtensionGlobals($globals);
-        }
+//        /**
+//         * Convert C-constants into PHP constants
+//         */
+//        $constantsSources = $this->_config->get('constants-sources');
+//        if (is_array($constantsSources)) {
+//            $this->_loadConstantsSources($constantsSources);
+//        }
+//
+//        /**
+//         * Set extension globals
+//         */
+//        $globals = $this->_config->get('globals');
+//        if (is_array($globals)) {
+//            $this->_setExtensionGlobals($globals);
+//        }
 
-        /**
-         * Load function optimizers
-         */
-        if (self::$_loadedPrototypes == false) {
+//        /**
+//         * Load function optimizers
+//         */
+//        if (self::$_loadedPrototypes == false) {
+//
+//            FunctionCall::addOptimizerDir(ZEPHIRPATH . 'Library/Optimizers/FunctionCall');
+//
+//            $optimizerDirs = $this->_config->get('optimizer-dirs');
+//            if (is_array($optimizerDirs)) {
+//                foreach ($optimizerDirs as $directory) {
+//                    FunctionCall::addOptimizerDir(realpath($directory));
+//                }
+//            }
+//
+//            if (is_dir(ZEPHIRPATH . 'prototypes') && is_readable(ZEPHIRPATH . 'prototypes')) {
+//
+//                /**
+//                 * Load additional extension prototypes
+//                 * @var $file \DirectoryIterator
+//                 */
+//                foreach (new \DirectoryIterator(ZEPHIRPATH . 'prototypes') as $file) {
+//                    if (!$file->isDir()) {
+//                        $extension = str_replace('.php', '', $file);
+//                        if (!extension_loaded($extension)) {
+//                            require $file->getRealPath();
+//                        }
+//                    }
+//                }
+//            }
+//
+//            self::$_loadedPrototypes = true;
+//        }
 
-            FunctionCall::addOptimizerDir(ZEPHIRPATH . 'Library/Optimizers/FunctionCall');
+//        /**
+//         * Round 3. compile all files to C sources
+//         */
+//        $files = array();
+//
+//        $hash = "";
+//        foreach ($this->_files as $compileFile) {
+//
+//            $compileFile->compile($this, $this->_stringManager);
+//            $compiledFile = $compileFile->getCompiledFile();
+//
+//            $methods = array();
+//            $classDefinition = $compileFile->getClassDefinition();
+//            foreach ($classDefinition->getMethods() as $method) {
+//                $methods[] = '[' . $method->getName() . ':' . join('-', $method->getVisibility()) . ']';
+//            }
+//
+//            $files[] = $compiledFile;
+//
+//            $hash .= '|' . $compiledFile . ':' . $classDefinition->getClassEntry() . '[' . join('|', $methods) . ']';
+//        }
+//        $hash = md5($hash);
+//
+//        $this->_compiledFiles = $files;
+//
+//        /* Load extra C-sources */
+//        $extraSources = $this->_config->get('extra-sources');
+//        if (is_array($extraSources)) {
+//            $this->_extraFiles = $extraSources;
+//        } else {
+//            $this->_extraFiles = array();
+//        }
 
-            $optimizerDirs = $this->_config->get('optimizer-dirs');
-            if (is_array($optimizerDirs)) {
-                foreach ($optimizerDirs as $directory) {
-                    FunctionCall::addOptimizerDir(realpath($directory));
-                }
-            }
+//        /**
+//         * Round 4. Create config.m4 and config.w32 files / Create project.c and project.h files
+//         */
+//        $namespace = str_replace('\\', '_', $namespace);
+//        $needConfigure = $this->createConfigFiles($namespace);
+//        $needConfigure |= $this->createProjectFiles($namespace);
+//        $needConfigure |= $this->checkIfPhpized($namespace);
 
-            if (is_dir(ZEPHIRPATH . 'prototypes') && is_readable(ZEPHIRPATH . 'prototypes')) {
+//        /**
+//         * When a new file is added or removed we need to run configure again
+//         */
+//        if (!($command instanceof CommandGenerate)) {
+//            if (!file_exists('.temp/' . self::VERSION . '/compiled-files-sum')) {
+//                $needConfigure = true;
+//                file_put_contents('.temp/' . self::VERSION . '/compiled-files-sum', $hash);
+//            } else {
+//                if (file_get_contents('.temp/' . self::VERSION . '/compiled-files-sum') != $hash) {
+//                    $needConfigure = true;
+//                    file_put_contents('.temp/' . self::VERSION . '/compiled-files-sum', $hash);
+//                }
+//            }
+//        }
 
-                /**
-                 * Load additional extension prototypes
-                 * @var $file \DirectoryIterator
-                 */
-                foreach (new \DirectoryIterator(ZEPHIRPATH . 'prototypes') as $file) {
-                    if (!$file->isDir()) {
-                        $extension = str_replace('.php', '', $file);
-                        if (!extension_loaded($extension)) {
-                            require $file->getRealPath();
-                        }
-                    }
-                }
-            }
-
-            self::$_loadedPrototypes = true;
-        }
-
-        /**
-         * Round 3. compile all files to C sources
-         */
-        $files = array();
-
-        $hash = "";
-        foreach ($this->_files as $compileFile) {
-
-            $compileFile->compile($this, $this->_stringManager);
-            $compiledFile = $compileFile->getCompiledFile();
-
-            $methods = array();
-            $classDefinition = $compileFile->getClassDefinition();
-            foreach ($classDefinition->getMethods() as $method) {
-                $methods[] = '[' . $method->getName() . ':' . join('-', $method->getVisibility()) . ']';
-            }
-
-            $files[] = $compiledFile;
-
-            $hash .= '|' . $compiledFile . ':' . $classDefinition->getClassEntry() . '[' . join('|', $methods) . ']';
-        }
-        $hash = md5($hash);
-
-        $this->_compiledFiles = $files;
-
-        /* Load extra C-sources */
-        $extraSources = $this->_config->get('extra-sources');
-        if (is_array($extraSources)) {
-            $this->_extraFiles = $extraSources;
-        } else {
-            $this->_extraFiles = array();
-        }
-
-        /**
-         * Round 4. Create config.m4 and config.w32 files / Create project.c and project.h files
-         */
-        $namespace = str_replace('\\', '_', $namespace);
-        $needConfigure = $this->createConfigFiles($namespace);
-        $needConfigure |= $this->createProjectFiles($namespace);
-        $needConfigure |= $this->checkIfPhpized($namespace);
-
-        /**
-         * When a new file is added or removed we need to run configure again
-         */
-        if (!($command instanceof CommandGenerate)) {
-            if (!file_exists('.temp/' . self::VERSION . '/compiled-files-sum')) {
-                $needConfigure = true;
-                file_put_contents('.temp/' . self::VERSION . '/compiled-files-sum', $hash);
-            } else {
-                if (file_get_contents('.temp/' . self::VERSION . '/compiled-files-sum') != $hash) {
-                    $needConfigure = true;
-                    file_put_contents('.temp/' . self::VERSION . '/compiled-files-sum', $hash);
-                }
-            }
-        }
-
-        /**
-         * Round 5. Generate the concatenation
-         */
-        $this->_stringManager->genConcatCode();
-
-        if ($this->_config->get('stubs-run-after-generate', 'stubs')) {
-            $this->stubs($command, true);
-        }
-
-        return $needConfigure;
+//        /**
+//         * Round 5. Generate the concatenation
+//         */
+//        $this->_stringManager->genConcatCode();
+//
+//        if ($this->_config->get('stubs-run-after-generate', 'stubs')) {
+//            $this->stubs($command, true);
+//        }
+//
+//        return $needConfigure;
     }
 
     /**

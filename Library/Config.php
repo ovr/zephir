@@ -73,8 +73,19 @@ class Config
                 'class' => '\Zephir\Parser\PHP'
             )
         ),
-        'compiler' => array(
-            'name' => Utils\Compiler::DEFAULT_COMPILER
+        'code-generators' => array(
+            'Zephir' => array(
+                'class' => '\Zephir\CodePrinter\Zephir',
+                'compiler' => array(
+                    'name' => Utils\Compiler::DEFAULT_COMPILER
+                ),
+                'require' => array(
+                    'version' => '>=4.8.0'
+                )
+            ),
+            'PHP' => array(
+                'class' => '\Zephir\CodePrinter\PHP'
+            )
         ),
         'namespace'   => '',
         'name'        => '',
