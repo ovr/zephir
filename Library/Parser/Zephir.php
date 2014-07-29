@@ -25,7 +25,7 @@ class Zephir implements ParserInterface
         foreach($json as $row) {
             switch($row->type) {
                 case 'class':
-                    $classDefinition = new ClassDefinition($row->name, $row->docblock);
+                    $classDefinition = new ClassDefinition($row->name, $row);
 
                     $file->addClass($classDefinition);
                     break;

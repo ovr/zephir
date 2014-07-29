@@ -27,7 +27,7 @@ class File
     /**
      * @var array
      */
-    protected $pathinfo;
+    protected $pathInfo;
 
     /**
      * @var ClassDefinition
@@ -44,7 +44,7 @@ class File
             throw new Exception('File is not readable: ' . $filePath);
         }
 
-        $this->pathinfo = pathinfo($filePath);
+        $this->pathInfo = pathinfo($filePath);
     }
 
     public function addClass(ClassDefinition $class)
@@ -52,13 +52,28 @@ class File
         $this->classes[] = $class;
     }
 
-    public function getFilepath()
+    public function preCompile()
     {
-        return $this->pathinfo['dirname'] . DIRECTORY_SEPARATOR . $this->pathinfo['basename'];
+
+    }
+
+    public function compile()
+    {
+
+    }
+
+    public function getFilePath()
+    {
+        return $this->pathInfo['dirname'] . DIRECTORY_SEPARATOR . $this->pathInfo['basename'];
+    }
+
+    public function getExtension()
+    {
+        return $this->pathInfo['extension'];
     }
 
     public function getFileName()
     {
-        return $this->pathinfo['filename'];
+        return $this->pathInfo['filename'];
     }
 }

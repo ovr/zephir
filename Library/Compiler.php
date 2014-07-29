@@ -80,6 +80,8 @@ class Compiler
      */
     protected $_extraFiles = array();
 
+    use Parsers;
+
     /**
      * Compiler constructor
      *
@@ -90,13 +92,10 @@ class Compiler
     {
         $this->_config = $config;
         $this->_logger = $logger;
-        $this->_stringManager = new StringsManager();
-    }
 
-    protected function parseFile(Compiler\File $file)
-    {
-        $parser = new Parser\Zephir();
-        $parser->parse($file);
+        $this->_stringManager = new StringsManager();
+
+        $this->initParsers();
     }
 
     /**
@@ -107,24 +106,13 @@ class Compiler
     protected function _preCompile($filePath)
     {
         $compilerFile = new Compiler\File($filePath);
-        $this->parseFile($compilerFile);
-        var_dump($compilerFile);
-        die();
+        $this->getParser($compilerFile->getExtension())->parse($compilerFile);
 
-//        if (preg_match('/\.zep$/', $filePath)) {
-//            $className = str_replace('/', '\\', $filePath);
-//            $className = preg_replace('/.zep$/', '', $className);
-//
-//            $className = join('\\', array_map(function ($i) {
-//                return ucfirst($i);
-//            }, explode('\\', $className)));
-//
-//
-//            $this->_files[$className] = new CompilerFile($className, $filePath, $this->_config, $this->_logger);
-//            $this->_files[$className]->preCompile();
-//
-//            $this->_definitions[$className] = $this->_files[$className]->getClassDefinition();
-//        }
+
+        $compilerFile->preCompile();
+        $compilerFile->compile();
+
+        $this->_files[$filePath] = $compilerFile;
     }
 
     /**
