@@ -101,7 +101,7 @@ class NativeArray
                     if ($exprCompiled->getCode() == 'false') {
                         return new GlobalConstant('ZEPHIR_GLOBAL(global_false)');
                     } else {
-                        throw new Exception('?');
+                        throw new \Exception('?');
                     }
                 }
                 break;
