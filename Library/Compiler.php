@@ -781,7 +781,7 @@ class Compiler
      */
     protected function _checkKernelFile($src, $dst)
     {
-        if (strstr($src, 'ext/kernel/concat.') !== false) {
+        if (strstr($src, 'ext/concat.') !== false) {
             return true;
         }
 
