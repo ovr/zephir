@@ -82,11 +82,11 @@ class NativeArrayAccess
         if ($this->_expecting) {
             if ($this->_expectingVariable) {
                 $symbolVariable = $this->_expectingVariable;
-                if ($symbolVariable->getType() != 'char') {
-                    $symbolVariable = $compilationContext->symbolTable->getTempNonTrackedVariable('char', $compilationContext);
+                if ($symbolVariable->getType() != 'char' && $symbolVariable->getType() != 'uchar') {
+                    $symbolVariable = $compilationContext->symbolTable->getTempNonTrackedVariable('uchar', $compilationContext);
                 }
             } else {
-                $symbolVariable = $compilationContext->symbolTable->getTempNonTrackedVariable('char', $compilationContext);
+                $symbolVariable = $compilationContext->symbolTable->getTempNonTrackedVariable('uchar', $compilationContext);
             }
         }
 
@@ -163,6 +163,7 @@ class NativeArrayAccess
 
         if ($this->_readOnly) {
             if ($this->_expecting && $this->_expectingVariable) {
+
                 /**
                  * If a variable is assigned once in the method, we try to promote it
                  * to a read only variable
@@ -196,6 +197,7 @@ class NativeArrayAccess
             }
         } else {
             if ($this->_expecting && $this->_expectingVariable) {
+
                 /**
                  * If a variable is assigned once in the method, we try to promote it
                  * to a read only variable
