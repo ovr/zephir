@@ -7,6 +7,8 @@ Zephir
 [![Latest Stable Version](https://poser.pugx.org/phalcon/zephir/v/stable.png)](https://packagist.org/packages/phalcon/zephir)
 [![Total Downloads](https://poser.pugx.org/phalcon/zephir/downloads.png)](https://packagist.org/packages/phalcon/zephir)
 
+#### [Documentation](http://zephir-lang.com/) | [Blog](http://blog.zephir-lang.com/) | [Sublime/TextMate](http://github.com/phalcon/zephir-sublime)
+
 Zephir - Ze(nd Engine) Ph(p) I(nt)r(mediate) - is a high level language that eases the creation and maintainability
 of extensions for PHP. Zephir extensions are exported to C code that can be compiled and optimized by major C compilers
 such as gcc/clang/vc++. Functionality is exposed to the PHP language.
@@ -66,12 +68,6 @@ Compile the extension:
 ```bash
 ./bin/zephir compile
 ```
-
-Documentation & Blog
---------------------
-* A preliminary documentation can be found [here](http://zephir-lang.com/)
-* Official Blog can be found [here](http://blog.zephir-lang.com/)
-* Sublime/TextMate highlight-syntax bundle [here](http://github.com/phalcon/zephir-sublime)
 
 License
 -------
