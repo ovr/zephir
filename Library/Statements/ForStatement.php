@@ -19,6 +19,7 @@
 
 namespace Zephir\Statements;
 
+use Zephir\Builder\Statements\LetStatementBuilder;
 use Zephir\Compiler;
 use Zephir\CompilationContext;
 use Zephir\CompilerException;
@@ -140,52 +141,50 @@ class ForStatement extends StatementAbstract
 
         if ($this->_statement['reverse']) {
             /**
-             * Create an implicit 'let' operation for the initialize expression, @TODO use a builder
+             * Create an implicit 'let' operation for the initialize expression
              */
-            $statement = new LetStatement(array(
-                'type' => 'let',
-                'assignments' => array(
+            $statement = new LetStatement(
+                (new LetStatementBuilder(
                     array(
                         'assign-type' => 'variable',
                         'variable' => $tempVariable->getName(),
                         'operator' => 'assign',
-                        'expr' => array(
-                            'type' => 'variable',
-                            'value' => $upperBoundVariable->getName(),
-                            'file' => $this->_statement['file'],
-                            'line' => $this->_statement['line'],
-                            'char' => $this->_statement['char']
-                        ),
+                        'file' => $this->_statement['file'],
+                        'line' => $this->_statement['line'],
+                        'char' => $this->_statement['char']
+                    ),
+                    array(
+                        'type' => 'variable',
+                        'value' => $upperBoundVariable->getName(),
                         'file' => $this->_statement['file'],
                         'line' => $this->_statement['line'],
                         'char' => $this->_statement['char']
                     )
-                )
-            ));
+                ))->get()
+            );
         } else {
             /**
-             * Create an implicit 'let' operation for the initialize expression, @TODO use a builder
+             * Create an implicit 'let' operation for the initialize expression
              */
-            $statement = new LetStatement(array(
-                'type' => 'let',
-                'assignments' => array(
+            $statement = new LetStatement(
+                (new LetStatementBuilder(
                     array(
                         'assign-type' => 'variable',
                         'variable' => $tempVariable->getName(),
                         'operator' => 'assign',
-                        'expr' => array(
-                            'type'  => $parameters[0]->getType(),
-                            'value' => $parameters[0]->getCode(),
-                            'file'  => $this->_statement['file'],
-                            'line'  => $this->_statement['line'],
-                            'char'  => $this->_statement['char']
-                        ),
                         'file' => $this->_statement['file'],
                         'line' => $this->_statement['line'],
                         'char' => $this->_statement['char']
+                    ),
+                    array(
+                        'type'  => $parameters[0]->getType(),
+                        'value' => $parameters[0]->getCode(),
+                        'file'  => $this->_statement['file'],
+                        'line'  => $this->_statement['line'],
+                        'char'  => $this->_statement['char']
                     )
-                )
-            ));
+                ))->get()
+            );
         }
 
         $statement->compile($compilationContext);

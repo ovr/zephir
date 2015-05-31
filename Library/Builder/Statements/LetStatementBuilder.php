@@ -45,7 +45,14 @@ class LetStatementBuilder extends AbstractStatementBuilder
     {
         return array(
             'type' => 'let',
-            'assignments' => array(array_merge(array('expr' => $this->expr), $this->assignments))
+            'assignments' => array(
+                array_merge(
+                    array(
+                        'expr' => $this->expr
+                    ),
+                    $this->assignments
+                )
+            )
         );
     }
 }
