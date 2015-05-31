@@ -100,6 +100,9 @@ class FlowTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($t->testFor21() === 0);
         $this->assertTrue($t->testFor22() === 0);
         $this->assertTrue($t->testFor23() === "zxvtrpnljhfdb");
+
+
+        $this->
     }
 
     public function testSwitch()

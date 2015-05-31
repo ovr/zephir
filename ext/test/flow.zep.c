@@ -1801,6 +1801,177 @@ PHP_METHOD(Test_Flow, testFor39) {
 
 }
 
+PHP_METHOD(Test_Flow, simpleForRangeKey) {
+
+	zend_bool _0;
+	int total = 0, _1, _2;
+	zval *i = NULL;
+
+	ZEPHIR_MM_GROW();
+
+	_2 = 100;
+	_1 = 1;
+	_0 = 0;
+	if (_1 <= _2) {
+		while (1) {
+			if (_0) {
+				_1++;
+				if (!(_1 <= _2)) {
+					break;
+				}
+			} else {
+				_0 = 1;
+			}
+			ZEPHIR_INIT_NVAR(i);
+			ZVAL_LONG(i, _1);
+			total++;
+		}
+	}
+	RETURN_MM_LONG(total);
+
+}
+
+PHP_METHOD(Test_Flow, simpleForRangeKeyStep2) {
+
+	zend_bool _0;
+	int total = 0, _1, _2;
+	zval *i = NULL;
+
+	ZEPHIR_MM_GROW();
+
+	_2 = 100;
+	_1 = 1;
+	_0 = 0;
+	if (_1 <= _2) {
+		while (1) {
+			if (_0) {
+				_1 += 2;
+				if (!(_1 <= _2)) {
+					break;
+				}
+			} else {
+				_0 = 1;
+			}
+			ZEPHIR_INIT_NVAR(i);
+			ZVAL_LONG(i, _1);
+			total++;
+		}
+	}
+	RETURN_MM_LONG(total);
+
+}
+
+PHP_METHOD(Test_Flow, simpleForRangeKeyStep4) {
+
+	zend_bool _0;
+	int total = 0, _1, _2;
+	zval *i = NULL;
+
+	ZEPHIR_MM_GROW();
+
+	_2 = 100;
+	_1 = 1;
+	_0 = 0;
+	if (_1 <= _2) {
+		while (1) {
+			if (_0) {
+				_1 += 4;
+				if (!(_1 <= _2)) {
+					break;
+				}
+			} else {
+				_0 = 1;
+			}
+			ZEPHIR_INIT_NVAR(i);
+			ZVAL_LONG(i, _1);
+			total++;
+		}
+	}
+	RETURN_MM_LONG(total);
+
+}
+
+PHP_METHOD(Test_Flow, simpleForRangeNoKey) {
+
+	zend_bool _0;
+	int total = 0, _1, _2;
+
+
+	_2 = 100;
+	_1 = 1;
+	_0 = 0;
+	if (_1 <= _2) {
+		while (1) {
+			if (_0) {
+				_1++;
+				if (!(_1 <= _2)) {
+					break;
+				}
+			} else {
+				_0 = 1;
+			}
+			_1 = _1;
+			total++;
+		}
+	}
+	RETURN_LONG(total);
+
+}
+
+PHP_METHOD(Test_Flow, simpleForRangeNoKeyStep2) {
+
+	zend_bool _0;
+	int total = 0, _1, _2;
+
+
+	_2 = 100;
+	_1 = 1;
+	_0 = 0;
+	if (_1 <= _2) {
+		while (1) {
+			if (_0) {
+				_1 += 2;
+				if (!(_1 <= _2)) {
+					break;
+				}
+			} else {
+				_0 = 1;
+			}
+			_1 = _1;
+			total++;
+		}
+	}
+	RETURN_LONG(total);
+
+}
+
+PHP_METHOD(Test_Flow, simpleForRangeNoKeyStep4) {
+
+	zend_bool _0;
+	int total = 0, _1, _2;
+
+
+	_2 = 100;
+	_1 = 1;
+	_0 = 0;
+	if (_1 <= _2) {
+		while (1) {
+			if (_0) {
+				_1 += 4;
+				if (!(_1 <= _2)) {
+					break;
+				}
+			} else {
+				_0 = 1;
+			}
+			_1 = _1;
+			total++;
+		}
+	}
+	RETURN_LONG(total);
+
+}
+
 PHP_METHOD(Test_Flow, testFor40) {
 
 	zephir_fcall_cache_entry *_4 = NULL;

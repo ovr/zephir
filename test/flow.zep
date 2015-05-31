@@ -778,6 +778,72 @@ class Flow
         return i;
     }
 
+    public fn simpleForRangeKey()
+    {
+        var i, total = 0;
+
+        for i in range(1, 100) {
+            let total++;
+        }
+
+        return total;
+    }
+
+    public fn simpleForRangeKeyStep2()
+    {
+        var i, total = 0;
+
+        for i in range(1, 100, 2) {
+            let total++;
+        }
+
+        return total;
+    }
+
+    public fn simpleForRangeKeyStep4()
+    {
+        var i, total = 0;
+
+        for i in range(1, 100, 4) {
+            let total++;
+        }
+
+        return total;
+    }
+
+    public fn simpleForRangeNoKey()
+    {
+        var total = 0;
+
+        for _ in range(1, 100) {
+            let total++;
+        }
+
+        return total;
+    }
+
+    public fn simpleForRangeNoKeyStep2()
+    {
+        var total = 0;
+
+        for _ in range(1, 100, 2) {
+            let total++;
+        }
+
+        return total;
+    }
+
+    public fn simpleForRangeNoKeyStep4()
+    {
+        var total = 0;
+
+        for _ in range(1, 100, 4) {
+            let total++;
+        }
+
+        return total;
+    }
+
     public function testFor40()
     {
         var a, b = 0;

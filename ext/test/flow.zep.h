@@ -75,6 +75,12 @@ PHP_METHOD(Test_Flow, testFor36);
 PHP_METHOD(Test_Flow, testFor37);
 PHP_METHOD(Test_Flow, testFor38);
 PHP_METHOD(Test_Flow, testFor39);
+PHP_METHOD(Test_Flow, simpleForRangeKey);
+PHP_METHOD(Test_Flow, simpleForRangeKeyStep2);
+PHP_METHOD(Test_Flow, simpleForRangeKeyStep4);
+PHP_METHOD(Test_Flow, simpleForRangeNoKey);
+PHP_METHOD(Test_Flow, simpleForRangeNoKeyStep2);
+PHP_METHOD(Test_Flow, simpleForRangeNoKeyStep4);
 PHP_METHOD(Test_Flow, testFor40);
 PHP_METHOD(Test_Flow, testSwitch1);
 PHP_METHOD(Test_Flow, testSwitch2);
@@ -220,6 +226,12 @@ ZEPHIR_INIT_FUNCS(test_flow_method_entry) {
 	PHP_ME(Test_Flow, testFor37, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Test_Flow, testFor38, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Test_Flow, testFor39, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(Test_Flow, simpleForRangeKey, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(Test_Flow, simpleForRangeKeyStep2, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(Test_Flow, simpleForRangeKeyStep4, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(Test_Flow, simpleForRangeNoKey, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(Test_Flow, simpleForRangeNoKeyStep2, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(Test_Flow, simpleForRangeNoKeyStep4, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Test_Flow, testFor40, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Test_Flow, testSwitch1, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Test_Flow, testSwitch2, NULL, ZEND_ACC_PUBLIC)
