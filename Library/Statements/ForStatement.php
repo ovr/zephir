@@ -41,23 +41,27 @@ class ForStatement extends StatementAbstract
      * Compiles a for statement that use a 'range' as expression
      *
      * @param array $exprRaw
-     * @param \CompilationContext $compilationContext
-     * @return boolean
+     * @param CompilationContext $compilationContext
+     * @return bool
+     * @throws CompilerException
+     * @throws \Zephir\Exception
      */
-    public function compileRange($exprRaw, CompilationContext $compilationContext)
+    public function compileRange(array $exprRaw, CompilationContext $compilationContext)
     {
-        if (!count($exprRaw['parameters'])) {
+        $countParameters = count($exprRaw['parameters']);
+        if (!$countParameters) {
             return false;
         }
 
-        if (count($exprRaw['parameters']) > 3) {
+        if ($countParameters > 3) {
             return false;
         }
 
         $functionCall = new FunctionCall();
         $parameters = $functionCall->getResolvedParamsAsExpr($exprRaw['parameters'], $compilationContext, $exprRaw);
 
-        if (count($parameters) != 2 && count($parameters) != 3) {
+        $countParameters = count($parameters);
+        if ($countParameters != 2 && $countParameters != 3) {
             throw new CompilerException("Wrong number of parameters", $this->_statement['expr']);
         }
 
